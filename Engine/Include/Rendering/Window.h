@@ -1,41 +1,43 @@
 #pragma once
 
-#include "../EnginePch.h"
+#include <X11/Xlib.h>
+#include <string>
 
-struct X11Window;
+namespace Engine {
+    namespace Rendering {
 
-namespace Engine
-{
-    class Window
-    {
+        class Window {
         public:
-        static Window& GetInstance()
-        {
-            return *m_instance;
-        }
+            Window();
+            ~Window();
 
-        static void InitWindow(int width, int height, const char* title)
-        {
-            m_instance = new Window(width, height, title);
-        }
+            // Initialize the X11 Display and Window
+            bool Initialize(int width, int height, const std::string& title);
 
-        Window(int width, int height, const char* title);
-        ~Window();
+            // Handle X11 events (inputs, window close, etc.)
+            // Returns false if the window should close
+            bool PollEvents();
 
-        void SetBackgroundColor(float r, float g, float b);
+            // Clear the window (Basic rendering stub)
+            void Clear();
 
-        // GetWindowSize() { return m_windowSize; }
-        Window GetWindow() { return m_window; }
+            // Swap buffers (if we were using double buffering/GL, placeholder for now)
+            void SwapBuffers();
 
-        void Clear();
-        void PollEvents();
-        void SwapBuffer();
-
-        bool ShouldClose() const;
+            // Getters for raw X11 access if needed later
+            Display* GetDisplay() const { return m_display; }
+            ::Window GetWindowID() const { return m_window; }
 
         private:
-        static Window* m_instance;
-        // m_windowSize;
-        Window m_window;
-    };
+            void Cleanup();
+
+        private:
+            Display* m_display;
+            ::Window m_window;
+            int m_screen;
+            Atom m_wmDeleteMessage; // Handle window close button
+            bool m_isRunning;
+        };
+
+    }
 }
