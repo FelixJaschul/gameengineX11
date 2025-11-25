@@ -3,8 +3,8 @@
 #include "Window.h"
 #include <X11/Xlib.h>
 
-namespace Engine::Rendering {
-
+namespace Engine::Rendering
+{
     class Renderer
     {
         public:
@@ -24,7 +24,7 @@ namespace Engine::Rendering {
         private:
         Display* m_Display;
         ::Window m_WindowID;
-        GC m_GC; // The X11 Graphics Context
+        GC m_GC;
         int m_Screen;
     };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/App/App.h"
+#include "App/App.h"
 
 extern Engine::App* Engine::CreateApp();
 

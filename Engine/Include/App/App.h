@@ -1,25 +1,30 @@
 #pragma once
 
+#include <memory>
+#include "Rendering/Window.h"
+#include "Rendering/Renderer.h"
+
 namespace Engine
 {
-    extern const char* appWindowName;
-    extern int appDefaultWindowX;
-    extern int appDefaultWindowY;
-
     class App
     {
         public:
+        App();
+        virtual ~App();
+
         void Run();
 
-        virtual void Start() {}
-        virtual void Update() {}
-        virtual void Render() {}
-
-        static float m_deltaTime;
+        private:
+        // Internal loop functions
+        void Update();
+        void Render();
 
         private:
-        static float m_lastFrame;
-    }
+        // Smart pointers handle memory automatically
+        std::unique_ptr<Rendering::Window> m_window;
+        std::unique_ptr<Rendering::Renderer> m_renderer;
 
-    App* CreateApp();
+        bool m_isRunning;
+    };
+
 }
