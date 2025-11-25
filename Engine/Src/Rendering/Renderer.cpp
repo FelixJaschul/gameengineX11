@@ -4,42 +4,38 @@
 namespace Engine::Rendering
 {
     Renderer::Renderer()
-        : m_Display(nullptr), m_WindowID(0), m_GC(nullptr), m_Screen(0)
+        : m_display(nullptr), m_windowID(0), m_GC(nullptr), m_screen(0)
     {
     }
 
     Renderer::~Renderer()
     {
-        if (m_Display && m_GC) {
-            XFreeGC(m_Display, m_GC);
+        if (m_display && m_GC) {
+            XFreeGC(m_display, m_GC);
         }
     }
 
-    bool Renderer::Initialize(Window* window)
+    bool Renderer::Init(Window* window)
     {
         if (!window) return false;
 
-        m_Display = window->GetDisplay();
-        m_WindowID = window->GetWindowID();
+        m_display = window->GetDisplay();
+        m_windowID = window->GetWindowID();
 
-        if (!m_Display || !m_WindowID) {
+        if (!m_display || !m_windowID) {
             std::cerr << "[Renderer] Invalid Window or Display passed." << std::endl;
             return false;
         }
 
-        m_Screen = DefaultScreen(m_Display);
-
-        // Create the Graphics Context (GC)
-        // We can pass 0 and nullptr if we don't want special flags immediately
-        m_GC = XCreateGC(m_Display, m_WindowID, 0, nullptr);
+        m_screen = DefaultScreen(m_display);
+        m_GC = XCreateGC(m_display, m_windowID, 0, nullptr);
 
         if (!m_GC) {
             std::cerr << "[Renderer] Failed to create Graphics Context." << std::endl;
             return false;
         }
 
-        // Set a default drawing color (White)
-        XSetForeground(m_Display, m_GC, WhitePixel(m_Display, m_Screen));
+        XSetForeground(m_display, m_GC, 0);
 
         std::cout << "[Renderer] Initialized successfully." << std::endl;
         return true;
@@ -47,34 +43,24 @@ namespace Engine::Rendering
 
     void Renderer::SetColor(unsigned long color)
     {
-        // Note: In true X11, 'color' is a pixel value.
-        // For standard 24-bit TrueColor displays, 0x00RRGGBB usually works naturally.
-        XSetForeground(m_Display, m_GC, color);
+        XSetForeground(m_display, m_GC, color);
     }
 
-    void Renderer::DrawLine(int x1, int y1, int x2, int y2)
+    void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
     {
-        XDrawLine(m_Display, m_WindowID, m_GC, x1, y1, x2, y2);
-    }
-
-    void Renderer::DrawRect(int x, int y, int width, int height)
-    {
-        XDrawRectangle(m_Display, m_WindowID, m_GC, x, y, width, height);
-    }
-
-    void Renderer::FillRect(int x, int y, int width, int height)
-    {
-        XFillRectangle(m_Display, m_WindowID, m_GC, x, y, width, height);
+        XDrawLine(m_display, m_windowID, m_GC, x1, y1, x2, y2);
+        XDrawLine(m_display, m_windowID, m_GC, x2, y2, x3, y3);
+        XDrawLine(m_display, m_windowID, m_GC, x3, y3, x1, y1);
     }
 
     void Renderer::Clear()
     {
-        XClearWindow(m_Display, m_WindowID);
+        XClearWindow(m_display, m_windowID);
     }
 
     void Renderer::Present()
     {
-        XFlush(m_Display);
+        XFlush(m_display);
     }
 
 }

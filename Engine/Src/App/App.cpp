@@ -20,9 +20,8 @@ namespace Engine
 
     void App::Run()
     {
-
-        if (!m_window->Init(800, 600, "Felix Engine X11")) return;
-        if (!m_renderer->Initialize(m_window.get())) return;
+        if (!m_window->Init(appDefaultWindowX, appDefaultWindowY, appWindowTitle)) return;
+        if (!m_renderer->Init(m_window.get())) return;
 
         m_isRunning = true;
 
@@ -53,13 +52,8 @@ namespace Engine
     {
         m_renderer->Clear();
 
-        // Red Box
-        m_renderer->SetColor(0xFF0000);
-        m_renderer->FillRect(100, 100, 50, 50);
-
-        // White Line
-        m_renderer->SetColor(0xFFFFFF);
-        m_renderer->DrawLine(100, 100, 200, 200);
+        m_renderer->SetColor(0x00FF00);
+        m_renderer->DrawTriangle(400, 100, 300, 400, 500, 400);
 
         m_renderer->Present();
     }

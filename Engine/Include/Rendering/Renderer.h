@@ -11,21 +11,20 @@ namespace Engine::Rendering
         Renderer();
         ~Renderer();
 
-        bool Initialize(Window* window);
+        bool Init(Window* window);
 
         void SetColor(unsigned long color); // 0xRRGGBB format usually requires XAllocColor, using raw pixel for now
-        void DrawLine(int x1, int y1, int x2, int y2);
-        void DrawRect(int x, int y, int width, int height);
-        void FillRect(int x, int y, int width, int height);
+
+        void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
 
         void Clear();
         void Present();
 
         private:
-        Display* m_Display;
-        ::Window m_WindowID;
+        Display* m_display;
+        ::Window m_windowID;
         GC m_GC;
-        int m_Screen;
+        int m_screen;
     };
 
 }

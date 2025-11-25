@@ -1,13 +1,12 @@
-#include "Engine/Include/App/App.h"
+#include "Engine/Include/App/EntryPoint.h"
 #include <iostream>
 #include <memory>
 
-int main() {
-    // Heap allocation is usually preferred for the App instance
-    // to prevent stack overflow if the class gets huge.
-    auto app = std::make_unique<Engine::App>();
+const char* Engine::appWindowTitle = "X11";
+int Engine::appDefaultWindowX = 800;
+int Engine::appDefaultWindowY = 600;
 
-    app->Run();
-
-    return 0;
+Engine::App* Engine::CreateApp()
+{
+    return new Engine::App();
 }

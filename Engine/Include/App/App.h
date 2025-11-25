@@ -6,6 +6,10 @@
 
 namespace Engine
 {
+    extern const char* appWindowTitle;
+    extern int appDefaultWindowX;
+    extern int appDefaultWindowY;
+
     class App
     {
         public:
@@ -27,4 +31,5 @@ namespace Engine
         bool m_isRunning;
     };
 
+    App* CreateApp();
 }

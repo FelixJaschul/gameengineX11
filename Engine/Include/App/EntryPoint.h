@@ -4,7 +4,7 @@
 
 extern Engine::App* Engine::CreateApp();
 
-int main(int argc, char** argv)
+int main()
 {
     auto app = Engine::CreateApp();
     app->Run();
