@@ -25,7 +25,7 @@ namespace Engine
         void SetBackgroundColor(float r, float g, float b);
 
         // GetWindowSize() { return m_windowSize; }
-        // GetWindow() { return m_window; }
+        Window GetWindow() { return m_window; }
 
         void Clear();
         void PollEvents();
@@ -33,11 +33,9 @@ namespace Engine
 
         bool ShouldClose() const;
 
-        friend class Input;
-
         private:
         static Window* m_instance;
         // m_windowSize;
-        // m_window;
+        Window m_window;
     };
 }
