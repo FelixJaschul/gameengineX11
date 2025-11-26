@@ -1,16 +1,12 @@
 #pragma once
 
 #include <memory>
-#include "Rendering/Window.h"
-#include "Rendering/Renderer.h"
-#include "Rendering/Camera.h"
+#include <Rendering/Window.h>
+#include <Rendering/Renderer.h>
+#include <Rendering/Camera.h>
 
 namespace Engine
 {
-    extern const char* appWindowTitle;
-    extern int appDefaultWindowX;
-    extern int appDefaultWindowY;
-
     class App
     {
         public:

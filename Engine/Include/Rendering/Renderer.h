@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window.h"
+#include <Rendering/Window.h>
 #include <X11/Xlib.h>
 
 namespace Engine::Rendering
@@ -25,7 +25,7 @@ namespace Engine::Rendering
 
         private:
         Display* m_display;
-        ::Window m_windowID;
+        ::Window m_window;
         GC m_GC;
         int m_screen;
     };

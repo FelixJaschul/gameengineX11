@@ -1,6 +1,6 @@
 #pragma once
 
-// #define OLIVE_IMPLEMENTATION
-// #include "./Ext/olive.c"
+#include <iostream>
+#include <App/EntryPoint.h>
 
-#define HELLOENGINE() std::cout << "Hello ENGINE!";
+#define HELLOENGINE() std::cout << "[Engine] Hello ENGINE!" << std::endl;

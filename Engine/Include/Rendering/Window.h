@@ -5,8 +5,10 @@
 
 #include <Math/Vec.h>
 
-// Forward declarations to avoid circular includes
-namespace Engine {
+// Do this forward declaration here because otherwise the terminal screams at you
+namespace Engine
+{
+    extern const char* appWindowTitle;
     extern int appDefaultWindowX;
     extern int appDefaultWindowY;
 }

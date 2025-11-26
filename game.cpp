@@ -1,6 +1,4 @@
-#include "Engine/Include/App/EntryPoint.h"
-#include <iostream>
-#include <memory>
+#include <Core.h>
 
 const char* Engine::appWindowTitle = "X11";
 int Engine::appDefaultWindowX = 800;
@@ -10,5 +8,6 @@ bool Engine::Rendering::appWireframeMode = true;
 
 Engine::App* Engine::CreateApp()
 {
+    HELLOENGINE();
     return new Engine::App();
 }
