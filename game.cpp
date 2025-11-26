@@ -1,4 +1,4 @@
-#include <Core.h>
+#include <Engine/Core.h>
 
 const char* Engine::appWindowTitle = "X11";
 int Engine::appDefaultWindowX = 800;
