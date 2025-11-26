@@ -52,8 +52,8 @@ namespace Engine
     {
         m_renderer->Clear();
 
-        m_renderer->SetColor(0x00FF00);
-        m_renderer->DrawTriangle(400, 100, 300, 400, 500, 400);
+        //m_renderer->DrawTriangle(400, 100, 300, 400, 500, 400, 0x00FF00);
+        m_renderer->DrawRect(250, 100, 100, 100, 0x00FF00);
 
         m_renderer->Present();
     }

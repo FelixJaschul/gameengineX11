@@ -2,5 +2,5 @@
 
 namespace Math
 {
-    inline float Radians(float deg);
+    float Radians(float deg);
 }

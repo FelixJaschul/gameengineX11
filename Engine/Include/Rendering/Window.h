@@ -3,6 +3,14 @@
 #include <X11/Xlib.h>
 #include <string>
 
+#include <Math/Vec.h>
+
+// Forward declarations to avoid circular includes
+namespace Engine {
+    extern int appDefaultWindowX;
+    extern int appDefaultWindowY;
+}
+
 namespace Engine::Rendering
 {
     class Window
@@ -20,9 +28,10 @@ namespace Engine::Rendering
         // Swap buffers (if we were using double buffering/GL, placeholder for now)
         void SwapBuffers();
 
-        // Getters for raw X11 access if needed later
         [[nodiscard]] Display* GetDisplay() const { return m_display; }
-        [[nodiscard]] ::Window GetWindowID() const { return m_window; }
+        [[nodiscard]] ::Window GetWindow()  const { return m_window;  }
+
+        static Math::Vec::iVec2 GetWindowSize() { return Math::Vec::iVec2{Engine::appDefaultWindowX, Engine::appDefaultWindowY}; }
 
         private:
         void Cleanup();

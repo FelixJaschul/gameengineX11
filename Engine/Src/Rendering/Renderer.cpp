@@ -20,7 +20,7 @@ namespace Engine::Rendering
         if (!window) return false;
 
         m_display = window->GetDisplay();
-        m_windowID = window->GetWindowID();
+        m_windowID = window->GetWindow();
 
         if (!m_display || !m_windowID) {
             std::cerr << "[Renderer] Invalid Window or Display passed." << std::endl;
@@ -46,11 +46,38 @@ namespace Engine::Rendering
         XSetForeground(m_display, m_GC, color);
     }
 
-    void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
+    void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color)
     {
-        XDrawLine(m_display, m_windowID, m_GC, x1, y1, x2, y2);
-        XDrawLine(m_display, m_windowID, m_GC, x2, y2, x3, y3);
-        XDrawLine(m_display, m_windowID, m_GC, x3, y3, x1, y1);
+        Renderer::SetColor(color);
+        if (appWireframeMode)
+        {
+            XDrawLine(m_display, m_windowID, m_GC, x1, y1, x2, y2);
+            XDrawLine(m_display, m_windowID, m_GC, x2, y2, x3, y3);
+            XDrawLine(m_display, m_windowID, m_GC, x3, y3, x1, y1);
+        }
+
+        if (!appWireframeMode)
+        {
+            XFillPolygon(m_display, m_windowID, m_GC, (XPoint[]) {
+                    { (short)x1, (short)y1 },
+                    { (short)x2, (short)y2 },
+                    { (short)x3, (short)y3 } }, 3, Convex, CoordModeOrigin
+            );
+        }
+    }
+
+    void Renderer::DrawRect(int x, int y, int width, int height, unsigned long color)
+    {
+        Renderer::SetColor(color);
+        if (appWireframeMode)
+        {
+            XDrawRectangle(m_display, m_windowID, m_GC, x, y, width, height);
+        }
+
+        if (!appWireframeMode)
+        {
+            XFillRectangle(m_display, m_windowID, m_GC, x, y, width, height);
+        }
     }
 
     void Renderer::Clear()

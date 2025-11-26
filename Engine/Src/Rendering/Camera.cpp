@@ -1,17 +1,18 @@
 #include <Rendering/Camera.h>
 #include <Math/Math.h>
+#include <cmath>
 
 namespace Engine::Rendering
 {
     Camera::Camera(Rendering::Window* window, Math::Vec::Vec3 position, Math::Vec::Vec3 direction, float fov)
-        : m_window(window->GetWindow()), m_position(position), m_direction(direction), m_fov(fov)
+        : m_window(window), m_position(position), m_direction(direction), m_fov(fov)
     {
 
     }
 
     // constructor with scalar values
     Camera::Camera(Rendering::Window* window, float posX, float posY, float posZ, float roll, float pitch, float yaw, float fov)
-        : m_window(window->GetWindow()), m_fov(fov)
+        : m_window(window), m_fov(fov)
     {
         m_position = Math::Vec::Vec3{posX, posY, posZ};
         m_direction = Math::Vec::Vec3{pitch, yaw, roll};
@@ -45,7 +46,7 @@ namespace Engine::Rendering
 
     Math::Mat4::Mat4 Camera::GetProjectionMatrix()
     {
-        Math::Vec::iVec2 w = m_window.GetWindowSize();
+        Math::Vec::iVec2 w = Window::GetWindowSize();
         return Math::Mat4::Perspective(Math::Radians(m_fov), (float)w.x / (float)w.y, 0.1f, 1000.0f);
     }
 }

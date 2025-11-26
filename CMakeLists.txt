@@ -13,6 +13,10 @@ set(SOURCES
         game.cpp
         Engine/Src/Rendering/Window.cpp
         Engine/Src/Rendering/Renderer.cpp
+        Engine/Src/Rendering/Camera.cpp
+        Engine/Src/Math/Math.cpp
+        Engine/Src/Math/Mat.cpp
+        Engine/Src/Math/Vec.cpp
         Engine/Src/App/App.cpp
 )
 

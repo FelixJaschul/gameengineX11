@@ -9,12 +9,12 @@ namespace Engine::Rendering
     class Camera
     {
         public:
-        explicit Camera(Rendering::Window *window,
+        explicit Camera(Window* window,
                         Math::Vec::Vec3 position  = Math::Vec::Vec3{0.0f, 0.0f, 0.0f},
                         Math::Vec::Vec3 direction = Math::Vec::Vec3{30, -90.0f, 0},
                         float fov = 70.0f);
 
-        Camera(Rendering::Window *window, float posX, float posY, float posZ, float roll, float pitch, float yaw, float fov = 70.0f);
+        Camera(Window* window, float posX, float posY, float posZ, float roll, float pitch, float yaw, float fov = 70.0f);
 
         Math::Vec::Vec3 Front();
         Math::Vec::Vec3 Right();
@@ -28,6 +28,6 @@ namespace Engine::Rendering
         float m_fov;
 
         private:
-        Window m_window{};
+        Window* m_window{nullptr};
     };
 }

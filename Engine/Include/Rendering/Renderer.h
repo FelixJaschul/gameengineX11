@@ -5,6 +5,8 @@
 
 namespace Engine::Rendering
 {
+    extern bool appWireframeMode;
+
     class Renderer
     {
         public:
@@ -15,7 +17,8 @@ namespace Engine::Rendering
 
         void SetColor(unsigned long color); // 0xRRGGBB format usually requires XAllocColor, using raw pixel for now
 
-        void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
+        void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color);
+        void DrawRect(int x, int y, int width, int height, unsigned long color);
 
         void Clear();
         void Present();
