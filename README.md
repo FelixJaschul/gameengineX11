@@ -1,7 +1,5 @@
 #### Rebuilding my old and ugly Rasterizer:
-- r : https://github.com/FelixJaschul/rasterizerX11.git (dont look at this its ugly as hell)
-- p1: https://www.youtube.com/watch?v=EnAA7q7b5JE
-- p2: https://www.youtube.com/watch?v=uRRNLWO5qmM&t=27s
+- repository: https://github.com/FelixJaschul/rasterizerX11.git (dont look at this its ugly as hell)
 
 #### THIS IS IT:
 
