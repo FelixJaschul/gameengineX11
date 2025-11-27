@@ -1,6 +1,5 @@
-#include "Rendering/Window.h"
+#include <Rendering/Window.h>
 #include <iostream>
-
 
 namespace Engine::Rendering
 {
