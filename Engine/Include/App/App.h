@@ -14,10 +14,14 @@ namespace Engine
 
         void Run();
 
-        private:
-        // Internal loop functions
-        void Update();
-        void Render();
+        protected:
+        virtual void Update();
+        virtual void Render();
+
+        // Utilities available to subclasses
+        void Quit();
+        [[nodiscard]] Rendering::Renderer* GetRenderer() { return m_renderer.get(); }
+        [[nodiscard]] Rendering::Window*   GetWindow()   { return m_window.get(); }
 
         private:
         // Smart pointers handle memory automatically

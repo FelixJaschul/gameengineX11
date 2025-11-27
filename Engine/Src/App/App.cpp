@@ -44,12 +44,14 @@ namespace Engine
         }
     }
 
+    void App::Quit()
+    {
+        m_isRunning = false;
+    }
+
     void App::Update()
     {
-        // Example usage: press Q to quit
-        if (Input::IsKeyPressed(Input::Key::Escape)) m_isRunning = false;
-
-        //if (Input::IsKeyPressed(Input::Key::W)) ;
+        // Will Update once every frame
     }
 
     void App::Render()
