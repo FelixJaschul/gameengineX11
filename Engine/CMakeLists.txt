@@ -12,7 +12,6 @@ find_package(X11 REQUIRED)
 set(ENGINE_SOURCES
         Src/Rendering/Window.cpp
         Src/Rendering/Renderer.cpp
-        Src/Rendering/Camera.cpp
         Src/Math/Math.cpp
         Src/Math/Mat.cpp
         Src/Math/Vec.cpp

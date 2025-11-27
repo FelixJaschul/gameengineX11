@@ -6,17 +6,12 @@
 
 namespace Engine
 {
-    auto position   = Math::Vec::Vec3{0.0f, 0.0f, 0.0f};
-    auto direction  = Math::Vec::Vec3{30, -90.0f, 0};
-    float fov = 70.0f;
-
     App::App() : m_isRunning(false)
     {
         std::cout << "[Engine] Creating Application..." << std::endl;
 
         m_window    = std::make_unique<Rendering::Window>();
         m_renderer  = std::make_unique<Rendering::Renderer>();
-        m_camera    = std::make_unique<Rendering::Camera>(m_window.get(), position, direction, fov);
     }
 
     App::~App()
@@ -53,6 +48,8 @@ namespace Engine
     {
         // Example usage: press Q to quit
         if (Input::IsKeyPressed(Input::Key::Escape)) m_isRunning = false;
+
+        //if (Input::IsKeyPressed(Input::Key::W)) ;
     }
 
     void App::Render()
