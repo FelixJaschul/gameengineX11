@@ -16,6 +16,7 @@ set(ENGINE_SOURCES
         Src/Math/Math.cpp
         Src/Math/Mat.cpp
         Src/Math/Vec.cpp
+        Src/Input/Input.cpp
         Src/App/App.cpp
 )
 

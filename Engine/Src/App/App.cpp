@@ -1,16 +1,22 @@
 #include <App/App.h>
 #include <iostream>
 #include <unistd.h>
+#include <Input/Input.h>
+#include <Math/Mat.h>
 
 namespace Engine
 {
+    auto position   = Math::Vec::Vec3{0.0f, 0.0f, 0.0f};
+    auto direction  = Math::Vec::Vec3{30, -90.0f, 0};
+    float fov = 70.0f;
 
     App::App() : m_isRunning(false)
     {
         std::cout << "[Engine] Creating Application..." << std::endl;
 
-        m_window = std::make_unique<Rendering::Window>();
-        m_renderer = std::make_unique<Rendering::Renderer>();
+        m_window    = std::make_unique<Rendering::Window>();
+        m_renderer  = std::make_unique<Rendering::Renderer>();
+        m_camera    = std::make_unique<Rendering::Camera>(m_window.get(), position, direction, fov);
     }
 
     App::~App()
@@ -27,11 +33,11 @@ namespace Engine
 
         while (m_isRunning) {
 
-            // Poll Events (Input)
-            // If the user clicks 'X', PollEvents returns false
-            if (!m_window->PollEvents()) {
-                m_isRunning = false;
-            }
+            // Mark the beginning of a new frame for input (captures presses/releases)
+            Input::UpdateFrame();
+
+            // Make Buttons usable
+            if (!m_window->PollEvents()) m_isRunning = false;
 
             // Game Logic
             Update();
@@ -45,14 +51,15 @@ namespace Engine
 
     void App::Update()
     {
-
+        // Example usage: press Q to quit
+        if (Input::IsKeyPressed(Input::Key::Escape)) m_isRunning = false;
     }
 
     void App::Render()
     {
         m_renderer->Clear();
 
-        //m_renderer->DrawTriangle(400, 100, 300, 400, 500, 400, 0x00FF00);
+        m_renderer->DrawTriangle(400, 100, 300, 400, 500, 400, 0xFF0000);
         m_renderer->DrawRect(250, 100, 100, 100, 0x00FF00);
 
         m_renderer->Present();

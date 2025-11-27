@@ -9,10 +9,7 @@ namespace Engine::Rendering
     class Camera
     {
         public:
-        explicit Camera(Window* window,
-                        Math::Vec::Vec3 position  = Math::Vec::Vec3{0.0f, 0.0f, 0.0f},
-                        Math::Vec::Vec3 direction = Math::Vec::Vec3{30, -90.0f, 0},
-                        float fov = 70.0f);
+        explicit Camera(Window* window, Math::Vec::Vec3 position, Math::Vec::Vec3 direction, float fov);
 
         Camera(Window* window, float posX, float posY, float posZ, float roll, float pitch, float yaw, float fov = 70.0f);
 
