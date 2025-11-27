@@ -3,7 +3,6 @@
 #include <memory>
 #include <Rendering/Window.h>
 #include <Rendering/Renderer.h>
-#include <Rendering/Camera.h>
 
 namespace Engine
 {
@@ -24,7 +23,6 @@ namespace Engine
         // Smart pointers handle memory automatically
         std::unique_ptr<Rendering::Window> m_window;
         std::unique_ptr<Rendering::Renderer> m_renderer;
-        std::unique_ptr<Rendering::Camera> m_camera;
 
         bool m_isRunning;
     };
