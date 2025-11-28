@@ -10,7 +10,7 @@ add_subdirectory(Engine)
 
 # App/executable that uses the Engine library
 add_executable(GameEngineX11
-        game.cpp
+        main.cpp
 )
 
 # Link the app against the Engine library. The Engine target exposes its

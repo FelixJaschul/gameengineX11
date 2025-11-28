@@ -7,7 +7,7 @@ int Engine::appDefaultWindowY = 600;
 bool Engine::Rendering::appWireframeMode = true;
 
 // Define your game-specific application by extending Engine::App
-class GAME final : public Engine::App
+class game final : public Engine::App
 {
     protected:
     void Update() override
@@ -20,7 +20,7 @@ class GAME final : public Engine::App
 
     void Render() override
     {
-        auto* renderer = GetRenderer();
+        auto* renderer = Engine::App::GetRenderer();
         renderer->Clear();
 
         renderer->DrawTriangle(400, 100, 300, 400, 500, 400, 0xFF0000);
@@ -33,5 +33,5 @@ class GAME final : public Engine::App
 Engine::App* Engine::CreateApp()
 {
     HELLOENGINE();
-    return new GAME();
+    return new game();
 }
