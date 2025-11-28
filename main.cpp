@@ -6,7 +6,6 @@ int Engine::appDefaultWindowY = 600;
 
 bool Engine::Rendering::appWireframeMode = true;
 
-// Define your game-specific application by extending Engine::App
 class game final : public Engine::App
 {
     protected:
