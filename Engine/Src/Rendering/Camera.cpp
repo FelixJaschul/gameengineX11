@@ -6,7 +6,7 @@
 namespace Engine::Rendering
 {
     Camera::Camera()
-        :m_groundHeight(Engine::appCurrentGroundHeight), m_groundCheck(Engine::appEnableGroundCheck)
+        :m_groundHeight(Engine::appCurrentGroundHeight)
     {
     }
 
@@ -14,7 +14,7 @@ namespace Engine::Rendering
     {
         m_position.x += dx;
 
-        if (m_groundCheck && dy > 0)
+        if (Engine::appEnableGroundCheck && dy > 0)
         {
             int newY = m_position.y + dy;
             if (newY >= m_groundHeight)
@@ -37,7 +37,7 @@ namespace Engine::Rendering
         m_position.x += dx;
 
         // Allow free vertical movement
-        if (!m_groundCheck)
+        if (!Engine::appEnableGroundCheck)
         {
             m_position.y += dy;
             return m_position;
@@ -82,7 +82,7 @@ namespace Engine::Rendering
 
     bool Camera::TryStartJump(int dy)
     {
-        if (!m_groundCheck) return false;
+        if (!Engine::appEnableGroundCheck) return false;
 
         if (!m_air && m_position.y >= m_groundHeight)
         {

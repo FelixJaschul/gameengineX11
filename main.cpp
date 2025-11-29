@@ -13,9 +13,9 @@ int Engine::appCurrentGroundHeight = 400;
 bool Engine::appEnableGroundCheck = true;
 bool Engine::appEnableVelocity = true;
 int Engine::appMovementJumpHeight = 600;
-int Engine::appPlayerHeight = 100; // Must match the rendered rect height
+int Engine::appPlayerHeight = 40;
 
-Math::Vec::iVec2 position;
+Math::Vec::iVec2 position = {.x = 400, .y = 400};
 
 class game final : public Engine::App
 {
@@ -44,8 +44,7 @@ class game final : public Engine::App
         auto* renderer = Engine::App::GetRenderer();
         renderer->Clear();
 
-        renderer->DrawTriangle(400, 100, 300, 400, 500, 400, 0xFF0000);
-        renderer->DrawRect(position.x, position.y, 100, 100, 0x00FF00);
+        renderer->DrawRect(position.x, position.y, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x00FF00);
 
         renderer->Present();
     }

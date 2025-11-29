@@ -28,6 +28,5 @@ namespace Engine::Rendering
         bool m_air{false};
 
         int m_groundHeight;
-        bool m_groundCheck;
     };
 }
