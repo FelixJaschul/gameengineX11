@@ -8,10 +8,11 @@ namespace Engine::Rendering
         return s_instance;
     }
 
-    void Camera::Move(int dx, int dy)
+    Math::Vec::iVec2 Camera::Move(int dx, int dy)
     {
         m_position.x += dx;
         m_position.y += dy;
+        return m_position;
     }
 
     void Camera::SetPosition(int x, int y)

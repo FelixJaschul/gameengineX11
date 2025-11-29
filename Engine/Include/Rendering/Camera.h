@@ -9,7 +9,7 @@ namespace Engine::Rendering
         public:
         static Camera& Instance();
 
-        void Move(int dx, int dy);
+        Math::Vec::iVec2 Move(int dx, int dy);
         void SetPosition(int x, int y);
 
         [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; };

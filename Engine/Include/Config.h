@@ -16,4 +16,5 @@ namespace Engine
     }
 
     extern int appMovementSpeed;
+    extern int appCurrentGroundHeight;
 }

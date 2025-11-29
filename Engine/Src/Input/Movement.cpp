@@ -6,28 +6,36 @@
 namespace Engine::Input
 {
     Movement::Movement()
-        : m_speed(Engine::appMovementSpeed)
+        : m_speed(Engine::appMovementSpeed), m_ground(Engine::appCurrentGroundHeight)
     {
     }
 
-    void Movement::Down() const
+    bool Movement::GroundCheck() const
     {
-        Engine::Rendering::Camera::Instance().Move(0, m_speed);
+        if (current_position.y == m_ground) return true;
+        return false;
     }
 
-    void Movement::Up() const
+
+    void Movement::Down()
     {
-        Engine::Rendering::Camera::Instance().Move(0, -m_speed);
+        if (Movement::GroundCheck()) return;
+        current_position = Engine::Rendering::Camera::Instance().Move(0, m_speed);
     }
 
-    void Movement::Right() const
+    void Movement::Up()
     {
-        Engine::Rendering::Camera::Instance().Move(m_speed, 0);
+        current_position = Engine::Rendering::Camera::Instance().Move(0, -m_speed);
     }
 
-    void Movement::Left() const
+    void Movement::Right()
     {
-        Engine::Rendering::Camera::Instance().Move(-m_speed, 0);
+        current_position = Engine::Rendering::Camera::Instance().Move(m_speed, 0);
+    }
+
+    void Movement::Left()
+    {
+        current_position = Engine::Rendering::Camera::Instance().Move(-m_speed, 0);
     }
 
 

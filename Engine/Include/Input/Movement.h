@@ -1,4 +1,5 @@
 #pragma once
+#include "Math/Vec.h"
 
 namespace Engine::Input
 {
@@ -8,13 +9,17 @@ namespace Engine::Input
         explicit Movement();
         ~Movement() = default;
 
-        void Right() const;
-        void Left() const;
+        void Right();
+        void Left();
 
-        void Up() const;
-        void Down() const;
+        void Up();
+        void Down();
 
         private:
+        [[nodiscard]] bool GroundCheck() const;
+
+        Math::Vec::iVec2 current_position{};
         int m_speed;
+        int m_ground;
     };
 }

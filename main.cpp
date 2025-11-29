@@ -1,9 +1,6 @@
 #include <Engine/Core.h>
 
-#include <Input/Movement.h>
 #include <Math/Vec.h>
-
-#include <Rendering/Camera.h>
 
 const char* Engine::Window::appWindowTitle = "X11";
 int Engine::Window::appDefaultWindowX = 800;
@@ -12,6 +9,7 @@ int Engine::Window::appDefaultWindowY = 600;
 bool Engine::Rendering::appWireframeMode = true;
 
 int Engine::appMovementSpeed = 10;
+int Engine::appCurrentGroundHeight = 400;
 
 Math::Vec::iVec2 position;
 
@@ -21,11 +19,11 @@ class game final : public Engine::App
     void Update() override
     {
         // Init
-        auto* camera = Engine::App::GetCamera();
+        auto* camera   = Engine::App::GetCamera();
         auto* movement = Engine::App::GetMovement();
 
         // Update
-        position = Engine::App::GetCamera()->GetPosition();
+        position = camera->GetPosition();
 
         // Input
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::appWireframeMode = !Engine::Rendering::appWireframeMode;
