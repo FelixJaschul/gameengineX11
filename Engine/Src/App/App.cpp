@@ -9,11 +9,12 @@ namespace Engine
     App::App()
         : m_isRunning(false)
     {
-        m_window    = std::make_unique<Rendering::Window>(Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY, Engine::Window::appWindowTitle);
-        m_camera    = std::make_unique<Rendering::Camera>();
-        m_renderer  = std::make_unique<Rendering::Renderer>(GetWindow());
-        m_movement  = std::make_unique<Input::Movement>(GetCamera());
-        m_time      = std::make_unique<Util::Time>();
+        // Create systems in an order that respects dependencies
+        m_window   = std::make_unique<Rendering::Window>(Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY, Engine::Window::appWindowTitle);
+        m_time     = std::make_unique<Util::Time>();
+        m_camera   = std::make_unique<Rendering::Camera>(m_time.get());
+        m_renderer = std::make_unique<Rendering::Renderer>(GetWindow());
+        m_movement = std::make_unique<Input::Movement>(GetCamera());
 
         std::cout << "[Engine] Creating Application..." << std::endl;
     }
@@ -25,13 +26,10 @@ namespace Engine
 
     void App::Run()
     {
-        Engine::Util::SetCurrent(m_time.get());
-
         m_isRunning = true;
 
         while (m_isRunning)
         {
-
             // Update time at the start of the frame so physics uses current dt
             m_time->Update();
 
@@ -45,8 +43,7 @@ namespace Engine
             Update();
 
             // Apply gravity/fall even when no input is pressed
-            if (m_camera)
-                m_camera->Jump(0, 0);
+            if (m_camera) m_camera->Jump(0, 0);
 
             // Rendering Logic
             Render();

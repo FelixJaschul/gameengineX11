@@ -3,7 +3,7 @@
 namespace Engine::Util
 {
     Time::Time()
-        : m_start(m_clock::now()), m_prev(m_start), m_deltaSeconds(0.0)
+        : m_start(m_clock::now()), m_prev(m_start), m_deltaSeconds(0.0), s_current(nullptr)
     {
     }
 
@@ -17,30 +17,5 @@ namespace Engine::Util
     double Time::GetElapsedSeconds() const
     {
         return std::chrono::duration<double>(m_clock::now() - m_start).count();
-    }
-
-    static Time* s_current = nullptr;
-
-    void SetCurrent(Time* time)
-    {
-        s_current = time;
-    }
-
-    void Update()
-    {
-        if (s_current)
-        {
-            s_current->Update();
-        }
-    }
-
-    double GetDeltaSeconds()
-    {
-        return s_current ? s_current->GetDeltaSeconds() : 0.0;
-    }
-
-    double GetElapsedSeconds()
-    {
-        return s_current ? s_current->GetElapsedSeconds() : 0.0;
     }
 }

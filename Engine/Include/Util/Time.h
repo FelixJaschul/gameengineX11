@@ -4,7 +4,6 @@
 
 namespace Engine::Util
 {
-    // Class-style time system (like Renderer/Window)
     class Time
     {
         public:
@@ -21,12 +20,6 @@ namespace Engine::Util
         m_clock::time_point m_start;
         m_clock::time_point m_prev;
         double m_deltaSeconds;
+        Time* s_current;
     };
-
-    void SetCurrent(Time* time);
-
-    void Init();
-    void Update();
-    double GetDeltaSeconds();
-    double GetElapsedSeconds();
 }

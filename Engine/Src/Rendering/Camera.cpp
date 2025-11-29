@@ -1,34 +1,21 @@
 #include <Rendering/Camera.h>
 #include <Util/Time.h>
+#include <App/App.h>
 #include <algorithm>
-#include "Config.h"
+#include <Config.h>
 
 namespace Engine::Rendering
 {
-    Camera::Camera()
-        :m_groundHeight(Engine::appCurrentGroundHeight)
+    Camera::Camera(Engine::Util::Time* time)
+        : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false),
+        m_groundHeight(Engine::appCurrentGroundHeight)
     {
     }
 
     Math::Vec::iVec2 Camera::Move(int dx, int dy)
     {
         m_position.x += dx;
-
-        if (Engine::appEnableGroundCheck && dy > 0)
-        {
-            int newY = m_position.y + dy;
-            if (newY >= m_groundHeight)
-            {
-                newY = m_groundHeight;
-                m_air = false;
-                m_velocityY = 0.0;
-            }
-            m_position.y = newY;
-        }
-        else
-        {
-            m_position.y += dy;
-        }
+        m_position.y += dy;
         return m_position;
     }
 
@@ -43,7 +30,7 @@ namespace Engine::Rendering
             return m_position;
         }
 
-        const double dt = std::max(0.0, Engine::Util::GetDeltaSeconds());
+        const double dt = std::max(0.0, m_time->GetDeltaSeconds());
 
         if (!m_air)
         {
@@ -80,7 +67,7 @@ namespace Engine::Rendering
         return m_position;
     }
 
-    bool Camera::TryStartJump(int dy)
+    bool Camera::GetJump(int dy)
     {
         if (!Engine::appEnableGroundCheck) return false;
 

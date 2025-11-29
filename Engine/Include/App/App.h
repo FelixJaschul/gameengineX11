@@ -17,18 +17,18 @@ namespace Engine
         virtual ~App();
 
         void Run();
+        void Quit();
 
         protected:
         virtual void Update();
         virtual void Render();
 
         // Utilities available to subclasses
-        void Quit();
-        [[nodiscard]] Rendering::Renderer* GetRenderer() const { return m_renderer.get(); }
-        [[nodiscard]] Rendering::Window* GetWindow() const { return m_window.get(); }
-        [[nodiscard]] Rendering::Camera* GetCamera() const { return m_camera.get(); }
-        [[nodiscard]] Input::Movement* GetMovement() const { return m_movement.get(); }
-        [[nodiscard]] Util::Time* GetTime() const { return m_time.get(); }
+        [[nodiscard]] Engine::Rendering::Renderer* GetRenderer() const { return m_renderer.get(); }
+        [[nodiscard]] Engine::Rendering::Window* GetWindow() const { return m_window.get(); }
+        [[nodiscard]] Engine::Rendering::Camera* GetCamera() const { return m_camera.get(); }
+        [[nodiscard]] Engine::Input::Movement* GetMovement() const { return m_movement.get(); }
+        [[nodiscard]] Engine::Util::Time* GetTime() const { return m_time.get(); }
 
         private:
         // Smart pointers handle memory automatically

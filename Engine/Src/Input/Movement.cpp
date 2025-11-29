@@ -37,7 +37,7 @@ namespace Engine::Input
         }
         else
         {
-            m_camera->TryStartJump(-m_jumpHeight);
+            m_camera->GetJump(-m_jumpHeight);
             current_position = m_camera->GetPosition();
         }
     }
