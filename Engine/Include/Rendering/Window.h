@@ -27,7 +27,6 @@ namespace Engine::Rendering
 
         void Clear();
 
-        // Swap buffers (if we were using double buffering/GL, placeholder for now)
         void SwapBuffers();
 
         [[nodiscard]] Display* GetDisplay() const { return m_display; }

@@ -1,8 +1,6 @@
 #include <App/App.h>
 #include <iostream>
 #include <unistd.h>
-#include <Input/Input.h>
-#include <Math/Mat.h>
 
 namespace Engine
 {
@@ -12,6 +10,7 @@ namespace Engine
 
         m_window    = std::make_unique<Rendering::Window>();
         m_renderer  = std::make_unique<Rendering::Renderer>();
+        m_movement  = std::make_unique<Input::Movement>(10);
     }
 
     App::~App()
@@ -23,6 +22,7 @@ namespace Engine
     {
         if (!m_window->Init(appDefaultWindowX, appDefaultWindowY, appWindowTitle)) return;
         if (!m_renderer->Init(m_window.get())) return;
+        if (!m_movement) return;
 
         m_isRunning = true;
 
@@ -52,6 +52,7 @@ namespace Engine
     void App::Update()
     {
         // Will Update once every frame
+        // Will be overridden
     }
 
     void App::Render()

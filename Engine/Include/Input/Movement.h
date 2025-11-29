@@ -5,20 +5,16 @@ namespace Engine::Input
     class Movement
     {
         public:
-        Movement();
-        ~Movement();
+        explicit Movement(int speed);
+        ~Movement() = default;
 
-        void Forward();
-        void Backward();
-        void Right();
-        void Left();
+        void Right() const;
+        void Left() const;
 
-        void Up();
-        void Down();
+        void Up() const;
+        void Down() const;
 
-        void turnLeft();
-        void turnRight();
-        void turnUp();
-        void turnDown();
+        private:
+        int m_speed;
     };
 }

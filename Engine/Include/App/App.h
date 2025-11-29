@@ -3,6 +3,9 @@
 #include <memory>
 #include <Rendering/Window.h>
 #include <Rendering/Renderer.h>
+#include <Input/Input.h>
+#include <Input/Movement.h>
+#include <Rendering/Camera.h>
 
 namespace Engine
 {
@@ -21,12 +24,15 @@ namespace Engine
         // Utilities available to subclasses
         void Quit();
         [[nodiscard]] Rendering::Renderer* GetRenderer() { return m_renderer.get(); }
-        [[nodiscard]] Rendering::Window*   GetWindow()   { return m_window.get(); }
+        [[nodiscard]] Rendering::Window* GetWindow() { return m_window.get(); }
+        [[nodiscard]] Input::Movement* GetMovement() { return m_movement.get(); }
+        [[nodiscard]] Rendering::Camera* GetCamera() { return &Rendering::Camera::Instance(); }
 
         private:
         // Smart pointers handle memory automatically
         std::unique_ptr<Rendering::Window> m_window;
         std::unique_ptr<Rendering::Renderer> m_renderer;
+        std::unique_ptr<Input::Movement> m_movement;
 
         bool m_isRunning;
     };
