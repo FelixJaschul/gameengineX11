@@ -26,7 +26,7 @@ namespace Engine
         [[nodiscard]] Rendering::Renderer* GetRenderer() { return m_renderer.get(); }
         [[nodiscard]] Rendering::Window* GetWindow() { return m_window.get(); }
         [[nodiscard]] Input::Movement* GetMovement() { return m_movement.get(); }
-        [[nodiscard]] Rendering::Camera* GetCamera() { return &Rendering::Camera::Instance(); }
+        static        Rendering::Camera* GetCamera() { return &Rendering::Camera::Instance(); }
 
         private:
         // Smart pointers handle memory automatically

@@ -1,10 +1,12 @@
 #include <Input/Movement.h>
 #include <Rendering/Camera.h>
 
+#include "Config.h"
+
 namespace Engine::Input
 {
-    Movement::Movement(int speed)
-        : m_speed(speed)
+    Movement::Movement()
+        : m_speed(Engine::appMovementSpeed)
     {
     }
 

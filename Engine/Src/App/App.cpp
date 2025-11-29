@@ -10,7 +10,7 @@ namespace Engine
 
         m_window    = std::make_unique<Rendering::Window>();
         m_renderer  = std::make_unique<Rendering::Renderer>();
-        m_movement  = std::make_unique<Input::Movement>(10);
+        m_movement  = std::make_unique<Input::Movement>();
     }
 
     App::~App()
@@ -20,14 +20,14 @@ namespace Engine
 
     void App::Run()
     {
-        if (!m_window->Init(appDefaultWindowX, appDefaultWindowY, appWindowTitle)) return;
+        if (!m_window->Init(Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY, Engine::Window::appWindowTitle)) return;
         if (!m_renderer->Init(m_window.get())) return;
         if (!m_movement) return;
 
         m_isRunning = true;
 
-        while (m_isRunning) {
-
+        while (m_isRunning)
+        {
             // Mark the beginning of a new frame for input (captures presses/releases)
             Input::UpdateFrame();
 

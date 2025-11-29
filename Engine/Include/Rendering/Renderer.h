@@ -5,8 +5,6 @@
 
 namespace Engine::Rendering
 {
-    extern bool appWireframeMode;
-
     class Renderer
     {
         public:

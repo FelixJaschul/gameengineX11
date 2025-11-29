@@ -5,7 +5,7 @@ namespace Engine::Input
     class Movement
     {
         public:
-        explicit Movement(int speed);
+        explicit Movement();
         ~Movement() = default;
 
         void Right() const;

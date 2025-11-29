@@ -4,14 +4,7 @@
 #include <string>
 
 #include <Math/Vec.h>
-
-// Do this forward declaration here because otherwise the terminal screams at you
-namespace Engine
-{
-    extern const char* appWindowTitle;
-    extern int appDefaultWindowX;
-    extern int appDefaultWindowY;
-}
+#include <Config.h>
 
 namespace Engine::Rendering
 {
@@ -32,7 +25,7 @@ namespace Engine::Rendering
         [[nodiscard]] Display* GetDisplay() const { return m_display; }
         [[nodiscard]] ::Window GetWindow()  const { return m_window;  }
 
-        static Math::Vec::iVec2 GetWindowSize() { return Math::Vec::iVec2{Engine::appDefaultWindowX, Engine::appDefaultWindowY}; }
+        static Math::Vec::iVec2 GetWindowSize() { return Math::Vec::iVec2{Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY}; }
 
         private:
         void Cleanup();

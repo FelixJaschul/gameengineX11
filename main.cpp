@@ -3,13 +3,15 @@
 #include <Input/Movement.h>
 #include <Math/Vec.h>
 
-#include "Rendering/Camera.h"
+#include <Rendering/Camera.h>
 
-const char* Engine::appWindowTitle = "X11";
-int Engine::appDefaultWindowX = 800;
-int Engine::appDefaultWindowY = 600;
+const char* Engine::Window::appWindowTitle = "X11";
+int Engine::Window::appDefaultWindowX = 800;
+int Engine::Window::appDefaultWindowY = 600;
 
 bool Engine::Rendering::appWireframeMode = true;
+
+int Engine::appMovementSpeed = 10;
 
 Math::Vec::iVec2 position;
 
