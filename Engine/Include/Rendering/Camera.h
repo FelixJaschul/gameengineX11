@@ -14,7 +14,6 @@ namespace Engine::Rendering
 
         Math::Vec::iVec2 Jump(int dx, int dy);
 
-        // Starts a jump impulse if grounded (with GroundCheck enabled). Returns true if the jump started.
         bool TryStartJump(int dy);
 
 
