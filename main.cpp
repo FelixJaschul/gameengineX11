@@ -10,6 +10,10 @@ bool Engine::Rendering::appWireframeMode = true;
 
 int Engine::appMovementSpeed = 10;
 int Engine::appCurrentGroundHeight = 400;
+bool Engine::appEnableGroundCheck = true;
+bool Engine::appEnableVelocity = true;
+int Engine::appMovementJumpHeight = 600;
+int Engine::appPlayerHeight = 100; // Must match the rendered rect height
 
 Math::Vec::iVec2 position;
 
@@ -27,6 +31,7 @@ class game final : public Engine::App
 
         // Input
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::appWireframeMode = !Engine::Rendering::appWireframeMode;
+        if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::appEnableGroundCheck = !Engine::appEnableGroundCheck;
 
         if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) movement->Right();
         if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  movement->Left();

@@ -3,50 +3,36 @@
 
 namespace Engine::Rendering
 {
-    Renderer::Renderer()
-        : m_display(nullptr), m_window(0), m_GC(nullptr), m_screen(0)
+    Renderer::Renderer(Window* window)
+        : m_display(window->GetDisplay()), m_window(window->GetWindow()),
+        m_GC(XCreateGC(m_display, m_window, 0, nullptr)), m_screen(DefaultScreen(m_display))
     {
-    }
-
-    Renderer::~Renderer()
-    {
-        if (m_display && m_GC) {
-            XFreeGC(m_display, m_GC);
-        }
-    }
-
-    bool Renderer::Init(Window* window)
-    {
-        if (!window) return false;
-
-        m_display = window->GetDisplay();
-        m_window  = window->GetWindow();
-
         if (!m_display || !m_window) {
             std::cerr << "[Renderer] Invalid Window or Display passed." << std::endl;
-            return false;
+            return;
         }
-
-        m_screen = DefaultScreen(m_display);
-        m_GC = XCreateGC(m_display, m_window, 0, nullptr);
 
         if (!m_GC) {
             std::cerr << "[Renderer] Failed to create Graphics Context." << std::endl;
-            return false;
+            return;
         }
 
         XSetForeground(m_display, m_GC, 0);
 
         std::cout << "[Renderer] Initialized successfully." << std::endl;
-        return true;
     }
 
-    void Renderer::SetColor(unsigned long color)
+    Renderer::~Renderer()
+    {
+        if (m_display && m_GC) XFreeGC(m_display, m_GC);
+    }
+
+    void Renderer::SetColor(unsigned long color) const
     {
         XSetForeground(m_display, m_GC, color);
     }
 
-    void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color)
+    void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color) const
     {
         Renderer::SetColor(color);
         if (appWireframeMode)
@@ -66,7 +52,7 @@ namespace Engine::Rendering
         }
     }
 
-    void Renderer::DrawRect(int x, int y, int width, int height, unsigned long color)
+    void Renderer::DrawRect(int x, int y, int width, int height, unsigned long color) const
     {
         Renderer::SetColor(color);
         if (appWireframeMode)
@@ -80,12 +66,12 @@ namespace Engine::Rendering
         }
     }
 
-    void Renderer::Clear()
+    void Renderer::Clear() const
     {
         XClearWindow(m_display, m_window);
     }
 
-    void Renderer::Present()
+    void Renderer::Present() const
     {
         XFlush(m_display);
     }

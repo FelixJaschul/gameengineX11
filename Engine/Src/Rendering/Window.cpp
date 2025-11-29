@@ -5,32 +5,21 @@
 
 namespace Engine::Rendering
 {
-    Window::Window()
-        : m_display(nullptr), m_window(0), m_screen(0), m_isRunning(false)
+    Window::Window(int width, int height, const char* title)
+        : m_display(XOpenDisplay(nullptr)), m_window(0), m_title(title), m_screen(DefaultScreen(m_display)), m_isRunning(false)
     {
-    }
-
-    Window::~Window()
-    {
-        Cleanup();
-    }
-
-    bool Window::Init(int width, int height, const std::string& title)
-    {
-        m_display = XOpenDisplay(nullptr);
         if (m_display == nullptr)
         {
             std::cerr << "[Engine] Failed to open X display." << std::endl;
-            return false;
+            m_isRunning = false;
+            return;
         }
-
-        m_screen = DefaultScreen(m_display);
 
         m_window = XCreateSimpleWindow(
             m_display,
             RootWindow(m_display, m_screen),
             10, 10,
-            width, height,
+            static_cast<unsigned int>(width), static_cast<unsigned int>(height),
             1, 0, 0
         );
 
@@ -41,11 +30,15 @@ namespace Engine::Rendering
         m_wmDeleteMessage = XInternAtom(m_display, "WM_DELETE_WINDOW", False);
         XSetWMProtocols(m_display, m_window, &m_wmDeleteMessage, 1);
 
-        XStoreName(m_display, m_window, title.c_str());
+        XStoreName(m_display, m_window, m_title);
         XMapWindow(m_display, m_window);
 
         m_isRunning = true;
-        return true;
+    }
+
+    Window::~Window()
+    {
+        Cleanup();
     }
 
     void Window::Clear()

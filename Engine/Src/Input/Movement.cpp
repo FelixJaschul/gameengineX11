@@ -5,37 +5,51 @@
 
 namespace Engine::Input
 {
-    Movement::Movement()
-        : m_speed(Engine::appMovementSpeed), m_ground(Engine::appCurrentGroundHeight)
+    Movement::Movement(Engine::Rendering::Camera* camera)
+        : m_speed(Engine::appMovementSpeed), m_jumpHeight(Engine::appMovementJumpHeight), m_ground(Engine::appCurrentGroundHeight), m_camera(camera)
     {
     }
 
     bool Movement::GroundCheck() const
     {
-        if (current_position.y == m_ground) return true;
-        return false;
-    }
+        if (!Engine::appEnableGroundCheck) return false;
 
+        int y = current_position.y;
+        if (m_camera)
+        {
+            y = m_camera->GetPosition().y;
+        }
+        const int groundY = Engine::appCurrentGroundHeight - Engine::appPlayerHeight;
+        return y >= groundY;
+    }
 
     void Movement::Down()
     {
-        if (Movement::GroundCheck()) return;
-        current_position = Engine::Rendering::Camera::Instance().Move(0, m_speed);
+        if (Engine::appEnableGroundCheck) return;
+        current_position = m_camera->Move(0, m_speed);
     }
 
     void Movement::Up()
     {
-        current_position = Engine::Rendering::Camera::Instance().Move(0, -m_speed);
+        if (!Engine::appEnableGroundCheck)
+        {
+            current_position = m_camera->Move(0, -m_speed);
+        }
+        else
+        {
+            m_camera->TryStartJump(-m_jumpHeight);
+            current_position = m_camera->GetPosition();
+        }
     }
 
     void Movement::Right()
     {
-        current_position = Engine::Rendering::Camera::Instance().Move(m_speed, 0);
+        current_position = m_camera->Move(m_speed, 0);
     }
 
     void Movement::Left()
     {
-        current_position = Engine::Rendering::Camera::Instance().Move(-m_speed, 0);
+        current_position = m_camera->Move(-m_speed, 0);
     }
 
 

@@ -7,17 +7,27 @@ namespace Engine::Rendering
     class Camera
     {
         public:
-        static Camera& Instance();
-
-        Math::Vec::iVec2 Move(int dx, int dy);
-        void SetPosition(int x, int y);
-
-        [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; };
-
-        private:
-        Camera() = default;
+        Camera();
         ~Camera() = default;
 
+        Math::Vec::iVec2 Move(int dx, int dy);
+
+        Math::Vec::iVec2 Jump(int dx, int dy);
+
+        // Starts a jump impulse if grounded (with GroundCheck enabled). Returns true if the jump started.
+        bool TryStartJump(int dy);
+
+
+        [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; }
+        void SetPosition(Math::Vec::iVec2 position) { m_position = position; }
+
+        private:
         Math::Vec::iVec2 m_position{0, 0};
+
+        double m_velocityY{0.0};
+        bool m_air{false};
+
+        int m_groundHeight;
+        bool m_groundCheck;
     };
 }

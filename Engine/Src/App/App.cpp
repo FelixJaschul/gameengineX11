@@ -1,16 +1,21 @@
 #include <App/App.h>
 #include <iostream>
 #include <unistd.h>
+#include <Util/Time.h>
+#include <Rendering/Camera.h>
 
 namespace Engine
 {
-    App::App() : m_isRunning(false)
+    App::App()
+        : m_isRunning(false)
     {
-        std::cout << "[Engine] Creating Application..." << std::endl;
+        m_window    = std::make_unique<Rendering::Window>(Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY, Engine::Window::appWindowTitle);
+        m_camera    = std::make_unique<Rendering::Camera>();
+        m_renderer  = std::make_unique<Rendering::Renderer>(GetWindow());
+        m_movement  = std::make_unique<Input::Movement>(GetCamera());
+        m_time      = std::make_unique<Util::Time>();
 
-        m_window    = std::make_unique<Rendering::Window>();
-        m_renderer  = std::make_unique<Rendering::Renderer>();
-        m_movement  = std::make_unique<Input::Movement>();
+        std::cout << "[Engine] Creating Application..." << std::endl;
     }
 
     App::~App()
@@ -20,22 +25,28 @@ namespace Engine
 
     void App::Run()
     {
-        if (!m_window->Init(Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY, Engine::Window::appWindowTitle)) return;
-        if (!m_renderer->Init(m_window.get())) return;
-        if (!m_movement) return;
+        Engine::Util::SetCurrent(m_time.get());
 
         m_isRunning = true;
 
         while (m_isRunning)
         {
+
+            // Update time at the start of the frame so physics uses current dt
+            m_time->Update();
+
             // Mark the beginning of a new frame for input (captures presses/releases)
             Input::UpdateFrame();
 
-            // Make Buttons usable
+            // Process window events
             if (!m_window->PollEvents()) m_isRunning = false;
 
             // Game Logic
             Update();
+
+            // Apply gravity/fall even when no input is pressed
+            if (m_camera)
+                m_camera->Jump(0, 0);
 
             // Rendering Logic
             Render();
