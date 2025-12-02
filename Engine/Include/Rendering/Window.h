@@ -14,16 +14,13 @@ namespace Engine::Rendering
         Window();
         ~Window();
 
-        bool PollEvents();
-
-        void Clear();
-
-        void SwapBuffers();
+        void Clear() const;
+        void SwapBuffers() const;
 
         [[nodiscard]] Display* GetDisplay() const { return m_display; }
         [[nodiscard]] ::Window GetWindow()  const { return m_window;  }
 
-        static Math::Vec::iVec2 GetWindowSize() { return Math::Vec::iVec2{Engine::Window::GetDefaultWindowX(), Engine::Window::GetDefaultWindowY()}; }
+        bool PollEvents();
 
         private:
         void Cleanup();

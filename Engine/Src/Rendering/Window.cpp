@@ -41,12 +41,12 @@ namespace Engine::Rendering
         Cleanup();
     }
 
-    void Window::Clear()
+    void Window::Clear() const
     {
         XClearWindow(m_display, m_window);
     }
 
-    void Window::SwapBuffers()
+    void Window::SwapBuffers() const
     {
         XFlush(m_display);
     }
