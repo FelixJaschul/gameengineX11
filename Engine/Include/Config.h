@@ -31,24 +31,21 @@ namespace Engine
     inline int  appMovementJumpHeight;
     inline int  appCurrentGroundHeight;
     inline int  appPlayerHeight;
+    // random number that just seemed to work:: default value
+    inline int  appGravityValue = 2000;
     inline bool appEnableGroundCheck;
 
     inline int  GetMovementSpeed() { return Engine::appMovementSpeed; }
     inline int  GetMovementJumpHeight() { return Engine::appMovementJumpHeight; }
     inline int  GetCurrentGroundHeight() { return Engine::appCurrentGroundHeight; }
     inline int  GetPlayerHeight() { return Engine::appPlayerHeight; }
+    inline int  GetGravityValue() { return Engine::appGravityValue; }
     inline bool GetGroundCheck() { return Engine::appEnableGroundCheck; }
 
     inline void SetMovementSpeed(int SPEED) { Engine::appMovementSpeed = SPEED; }
     inline void SetMovementJumpHeight(int JUMP) { Engine::appMovementJumpHeight = JUMP; }
     inline void SetCurrentGroundHeight(int HEIGHT) { Engine::appCurrentGroundHeight = HEIGHT; }
     inline void SetPlayerHeight(int HEIGHT) { Engine::appPlayerHeight = HEIGHT; }
-    inline void SetGroundCheck(bool MODE) { Engine::appEnableGroundCheck = MODE; }
-
-    // random number that just seemed to work:: default value
-    inline int appGravityValue = 2000;
-
-    inline int  GetGravityValue() { return Engine::appGravityValue; }
-
     inline void setGravityValue(int value) { Engine::appGravityValue = value; }
+    inline void SetGroundCheck(bool MODE) { Engine::appEnableGroundCheck = MODE; }
 }
