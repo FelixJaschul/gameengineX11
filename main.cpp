@@ -22,9 +22,12 @@ class game final : public Engine::App
     public:
     game()
     {
-        AddBlock(new Engine::Rendering::Block({-10, 450}, 900, 50, 0x8B4513));
-        AddBlock(new Engine::Rendering::Block({200, 300}, 200, 30, 0x654321));
-        AddBlock(new Engine::Rendering::Block({450, 200}, 150, 30, 0x654321));
+        int x = -Engine::appPlayerHeight;
+        for (int i = 0; i != 17; i++)
+        {
+            x += Engine::appPlayerHeight;
+            AddBlock(new Engine::Rendering::Block({x, 450}, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x8B4513));
+        }
     }
 
     protected:
