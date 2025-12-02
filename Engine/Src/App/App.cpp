@@ -10,11 +10,11 @@ namespace Engine
         : m_isRunning(false)
     {
         // Create systems in an order that respects dependencies
-        m_window   = std::make_unique<Rendering::Window>(Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY, Engine::Window::appWindowTitle);
+        m_window   = std::make_unique<Rendering::Window>();
         m_time     = std::make_unique<Util::Time>();
         m_camera   = std::make_unique<Rendering::Camera>(m_time.get(), m_blocks);
-        m_renderer = std::make_unique<Rendering::Renderer>(GetWindow());
-        m_movement = std::make_unique<Input::Movement>(GetCamera());
+        m_renderer = std::make_unique<Rendering::Renderer>(Engine::App::GetWindow());
+        m_movement = std::make_unique<Input::Movement>(Engine::App::GetCamera());
 
         std::cout << "[Engine] Creating Application..." << std::endl;
     }
@@ -22,10 +22,7 @@ namespace Engine
     App::~App()
     {
         // Clean up blocks
-        for (auto* block : m_blocks)
-        {
-            delete block;
-        }
+        for (auto* block : m_blocks) delete block;
         m_blocks.clear();
 
         std::cout << "[Engine] Destroying Application..." << std::endl;
@@ -47,7 +44,6 @@ namespace Engine
             if (!m_window->PollEvents()) m_isRunning = false;
 
             // Update blocks
-            for (auto* block : m_blocks) if (block) block->Update();
 
             // Game Logic
             Update();
@@ -75,15 +71,8 @@ namespace Engine
 
     void App::Render()
     {
-        m_renderer->Clear();
-
-        // Render all blocks
-        for (const auto* block : m_blocks) if (block) block->Render(m_renderer.get());
-
-        m_renderer->DrawTriangle(400, 100, 300, 400, 500, 400, 0xFF0000);
-        m_renderer->DrawRect(250, 100, 100, 100, 0x00FF00);
-
-        m_renderer->Present();
+        // Render
+        // Will be overridden
     }
 
 }

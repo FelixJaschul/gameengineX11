@@ -18,7 +18,7 @@ namespace Engine::Input
 
         void Right();
         void Left();
-        void Up(const std::vector<Engine::Rendering::Block*>& blocks);
+        void Up();
         void Down();
 
         void SetBlocks(const std::vector<Engine::Rendering::Block*>* blocks) { m_blocks = blocks; }

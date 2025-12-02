@@ -6,17 +6,17 @@
 namespace Engine::Input
 {
     Movement::Movement(Engine::Rendering::Camera* camera)
-        : m_speed(Engine::appMovementSpeed), m_jumpHeight(Engine::appMovementJumpHeight), m_camera(camera), m_blocks(nullptr)
+        : m_speed(Engine::GetMovementSpeed()), m_jumpHeight(Engine::GetMovementJumpHeight()), m_camera(camera), m_blocks(nullptr)
     {
     }
 
     void Movement::Down()
     {
-        if (Engine::appEnableGroundCheck) return;
+        if (Engine::GetGroundCheck()) return;
         current_position = m_camera->Move(0, m_speed);
     }
 
-    void Movement::Up(const std::vector<Engine::Rendering::Block*>& blocks)
+    void Movement::Up()
     {
         if (!Engine::appEnableGroundCheck)
         {

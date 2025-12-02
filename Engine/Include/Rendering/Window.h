@@ -11,7 +11,7 @@ namespace Engine::Rendering
     class Window
     {
         public:
-        Window(int width, int height, const char* title);
+        Window();
         ~Window();
 
         bool PollEvents();
@@ -23,7 +23,7 @@ namespace Engine::Rendering
         [[nodiscard]] Display* GetDisplay() const { return m_display; }
         [[nodiscard]] ::Window GetWindow()  const { return m_window;  }
 
-        static Math::Vec::iVec2 GetWindowSize() { return Math::Vec::iVec2{Engine::Window::appDefaultWindowX, Engine::Window::appDefaultWindowY}; }
+        static Math::Vec::iVec2 GetWindowSize() { return Math::Vec::iVec2{Engine::Window::GetDefaultWindowX(), Engine::Window::GetDefaultWindowY()}; }
 
         private:
         void Cleanup();

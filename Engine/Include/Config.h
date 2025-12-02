@@ -5,22 +5,50 @@ namespace Engine
 {
     namespace Window
     {
-        extern const char* appWindowTitle;
-        extern int appDefaultWindowX;
-        extern int appDefaultWindowY;
+        inline const char* appWindowTitle;
+        inline int appDefaultWindowX;
+        inline int appDefaultWindowY;
+
+        inline const char* GetWindowTitle() { return Engine::Window::appWindowTitle; }
+        inline int  GetDefaultWindowX() { return Engine::Window::appDefaultWindowX; }
+        inline int  GetDefaultWindowY() { return Engine::Window::appDefaultWindowY; }
+
+        inline void SetWindowTitle(const char* TITLE) { Engine::Window::appWindowTitle = TITLE; }
+        inline void SetDefaultWindowX(int WIDTH) { Engine::Window::appDefaultWindowX = WIDTH; }
+        inline void SetDefaultWindowY(int HEIGHT) { Engine::Window::appDefaultWindowY = HEIGHT; }
     }
 
     namespace Rendering
     {
-        extern bool appWireframeMode;
+        inline bool appWireframeMode;
+
+        inline bool GetWireframeMode() { return Engine::Rendering::appWireframeMode; }
+
+        inline void SetWireframeMode(bool MODE) { Engine::Rendering::appWireframeMode = MODE; }
     }
 
-    extern int appMovementSpeed;
-    extern int appMovementJumpHeight;
-    extern int appCurrentGroundHeight;
-    extern bool appEnableGroundCheck;
-    extern int appPlayerHeight;
+    inline int  appMovementSpeed;
+    inline int  appMovementJumpHeight;
+    inline int  appCurrentGroundHeight;
+    inline int  appPlayerHeight;
+    inline bool appEnableGroundCheck;
+
+    inline int  GetMovementSpeed() { return Engine::appMovementSpeed; }
+    inline int  GetMovementJumpHeight() { return Engine::appMovementJumpHeight; }
+    inline int  GetCurrentGroundHeight() { return Engine::appCurrentGroundHeight; }
+    inline int  GetPlayerHeight() { return Engine::appPlayerHeight; }
+    inline bool GetGroundCheck() { return Engine::appEnableGroundCheck; }
+
+    inline void SetMovementSpeed(int SPEED) { Engine::appMovementSpeed = SPEED; }
+    inline void SetMovementJumpHeight(int JUMP) { Engine::appMovementJumpHeight = JUMP; }
+    inline void SetCurrentGroundHeight(int HEIGHT) { Engine::appCurrentGroundHeight = HEIGHT; }
+    inline void SetPlayerHeight(int HEIGHT) { Engine::appPlayerHeight = HEIGHT; }
+    inline void SetGroundCheck(bool MODE) { Engine::appEnableGroundCheck = MODE; }
 
     // random number that just seemed to work:: default value
-    inline extern const int appGravityValue = 2000;
+    inline int appGravityValue = 2000;
+
+    inline int  GetGravityValue() { return Engine::appGravityValue; }
+
+    inline void setGravityValue(int value) { Engine::appGravityValue = value; }
 }

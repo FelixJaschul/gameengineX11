@@ -24,10 +24,10 @@ namespace Engine::Rendering
         for (const auto* block : m_blocks)
         {
             // Only consider blocks horizontally under the player
-            if (block->IsPlayerAbove(m_position, Engine::appPlayerHeight))
+            if (block->IsPlayerAbove(m_position, Engine::GetPlayerHeight()))
             {
                 // Block must be below or slightly overlapping the player's bottom
-                if (block->GetGroundHeight() >= m_position.y + Engine::appPlayerHeight &&
+                if (block->GetGroundHeight() >= m_position.y + Engine::GetPlayerHeight() &&
                     block->GetGroundHeight() <  std::numeric_limits<int>::max())
                 {
                     return block;
@@ -41,14 +41,14 @@ namespace Engine::Rendering
     {
         m_position.x += dx;
 
-        if (!Engine::appEnableGroundCheck)
+        if (!Engine::GetGroundCheck())
         {
             m_position.y += dy;
             return m_position;
         }
 
         // IF GROUND CHECK IS ENABLED ::::: DO THIS ALL
-        Engine::appCurrentGroundHeight = GetBlockBeneath()->GetGroundHeight();
+        Engine::SetCurrentGroundHeight(GetBlockBeneath()->GetGroundHeight());
 
         if (!m_air && dy < 0) // Jump
         {
@@ -57,13 +57,13 @@ namespace Engine::Rendering
         }
 
         const double dt = std::max(0.0, m_time->GetDeltaSeconds());
-        m_velocityY += appGravityValue * dt; // Math bla bla
+        m_velocityY += Engine::GetGravityValue() * dt; // Math bla bla
         double newY = static_cast<double>(m_position.y) + m_velocityY * dt;
 
         // Snap to ground
-        if (newY + Engine::appPlayerHeight >= Engine::appCurrentGroundHeight)
+        if (newY + Engine::GetPlayerHeight() >= Engine::GetCurrentGroundHeight())
         {
-            newY = Engine::appCurrentGroundHeight - Engine::appPlayerHeight;
+            newY = Engine::GetCurrentGroundHeight() - Engine::GetPlayerHeight();
             m_velocityY = 0.0;
             m_air = false;
         }
@@ -79,10 +79,10 @@ namespace Engine::Rendering
 
     bool Camera::GetJump(int dy)
     {
-        if (!Engine::appEnableGroundCheck) return false;
+        if (!Engine::GetGroundCheck()) return false;
 
         if (!m_air &&
-            m_position.y + Engine::appPlayerHeight >= GetBlockBeneath()->GetGroundHeight() &&
+            m_position.y + Engine::GetPlayerHeight() >= GetBlockBeneath()->GetGroundHeight() &&
             dy < 0)
         {
             m_air = true;

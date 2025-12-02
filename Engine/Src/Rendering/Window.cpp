@@ -5,8 +5,8 @@
 
 namespace Engine::Rendering
 {
-    Window::Window(int width, int height, const char* title)
-        : m_display(XOpenDisplay(nullptr)), m_window(0), m_title(title), m_screen(DefaultScreen(m_display)), m_isRunning(false)
+    Window::Window()
+        : m_display(XOpenDisplay(nullptr)), m_window(0), m_title(Engine::Window::GetWindowTitle()), m_screen(DefaultScreen(m_display)), m_isRunning(false)
     {
         if (m_display == nullptr)
         {
@@ -19,7 +19,7 @@ namespace Engine::Rendering
             m_display,
             RootWindow(m_display, m_screen),
             10, 10,
-            static_cast<unsigned int>(width), static_cast<unsigned int>(height),
+            static_cast<unsigned int>(Engine::Window::GetDefaultWindowY()), static_cast<unsigned int>(Engine::Window::GetDefaultWindowX()),
             1, 0, 0
         );
 
