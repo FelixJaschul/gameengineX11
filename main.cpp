@@ -5,10 +5,10 @@ int Engine::Window::appDefaultWindowX = 800;
 int Engine::Window::appDefaultWindowY = 600;
 
 bool Engine::Rendering::appWireframeMode = true;
+bool Engine::appEnableGroundCheck = true;
 
 int Engine::appMovementSpeed = 10;
 int Engine::appCurrentGroundHeight = 400;
-bool Engine::appEnableGroundCheck = true;
 int Engine::appMovementJumpHeight = 900;
 int Engine::appPlayerHeight = 40;
 
