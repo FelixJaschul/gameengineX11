@@ -19,8 +19,8 @@ namespace Engine
     extern int appMovementJumpHeight;
     extern int appCurrentGroundHeight;
     extern bool appEnableGroundCheck;
-    extern bool appEnableVelocity;
-    extern int appPlayerHeight; // Height of the player/rect for ground collisions
+    extern int appPlayerHeight;
 
+    // random number that just seemed to work:: default value
     inline extern const int appGravityValue = 2000;
 }

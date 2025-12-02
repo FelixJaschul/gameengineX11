@@ -34,7 +34,7 @@ namespace Engine::Rendering
                 }
             }
         }
-        return nullptr;
+        return nullptr; // crash game if no block
     }
 
     Math::Vec::iVec2 Camera::Jump(int dx, int dy)

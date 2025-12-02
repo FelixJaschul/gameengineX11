@@ -1,6 +1,4 @@
 #include <Engine/Core.h>
-#include <Math/Vec.h>
-#include <Rendering/Block.h>
 
 const char* Engine::Window::appWindowTitle = "X11";
 int Engine::Window::appDefaultWindowX = 800;
@@ -11,7 +9,6 @@ bool Engine::Rendering::appWireframeMode = true;
 int Engine::appMovementSpeed = 10;
 int Engine::appCurrentGroundHeight = 400;
 bool Engine::appEnableGroundCheck = true;
-bool Engine::appEnableVelocity = true;
 int Engine::appMovementJumpHeight = 900;
 int Engine::appPlayerHeight = 40;
 
@@ -34,36 +31,36 @@ class game final : public Engine::App
     void Update() override
     {
         // Init
-        auto* camera   = Engine::App::GetCamera();
-        auto* movement = Engine::App::GetMovement();
-        auto& blocks= Engine::App::GetBlocks();
+        auto* Camera = Engine::App::GetCamera();
+        auto* Move   = Engine::App::GetMovement();
+        auto& Blocks = Engine::App::GetBlocks();
 
         // Update
-        position = camera->GetPosition();
+        position = Camera->GetPosition();
 
         // Input
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::appWireframeMode = !Engine::Rendering::appWireframeMode;
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::appEnableGroundCheck = !Engine::appEnableGroundCheck;
 
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) movement->Right();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  movement->Left();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Down))  movement->Down();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Up))    movement->Up(blocks);
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) Move->Right();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  Move->Left();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Down))  Move->Down();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Up))    Move->Up(Blocks);
     }
 
     void Render() override
     {
-        auto* renderer = Engine::App::GetRenderer();
-        renderer->Clear();
+        auto* Renderer = Engine::App::GetRenderer();
+        Renderer->Clear();
 
         // Render all blocks first
-        auto& blocks = Engine::App::GetBlocks();
-        for (const auto* block : blocks) if (block) block->Render(renderer);
+        auto& Blocks = Engine::App::GetBlocks();
+        for (const auto* Block : Blocks) if (Block) Block->Render(Renderer);
 
         // Render player
-        renderer->DrawRect(position.x, position.y, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x00FF00);
+        Renderer->DrawRect(position.x, position.y, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x00FF00);
 
-        renderer->Present();
+        Renderer->Present();
     }
 };
 
