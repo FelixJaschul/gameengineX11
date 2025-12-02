@@ -1,7 +1,12 @@
 #pragma once
 #include "Math/Vec.h"
+#include <vector>
 
-namespace Engine::Rendering { class Camera; }
+namespace Engine::Rendering
+{
+    class Camera;
+    class Block;
+}
 
 namespace Engine::Input
 {
@@ -13,18 +18,17 @@ namespace Engine::Input
 
         void Right();
         void Left();
-
-        void Up();
+        void Up(const std::vector<Engine::Rendering::Block*>& blocks);
         void Down();
 
-        private:
-        [[nodiscard]] bool GroundCheck() const;
+        void SetBlocks(const std::vector<Engine::Rendering::Block*>* blocks) { m_blocks = blocks; }
 
+        private:
         Math::Vec::iVec2 current_position{};
         Engine::Rendering::Camera* m_camera{nullptr};
+        const std::vector<Engine::Rendering::Block*>* m_blocks{nullptr};
 
         int m_speed;
         int m_jumpHeight;
-        int m_ground;
     };
 }

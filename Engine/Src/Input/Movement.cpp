@@ -1,26 +1,13 @@
 #include <Input/Movement.h>
 #include <Rendering/Camera.h>
-
-#include "Config.h"
+#include <Rendering/Block.h>
+#include <Config.h>
 
 namespace Engine::Input
 {
     Movement::Movement(Engine::Rendering::Camera* camera)
-        : m_speed(Engine::appMovementSpeed), m_jumpHeight(Engine::appMovementJumpHeight), m_ground(Engine::appCurrentGroundHeight), m_camera(camera)
+        : m_speed(Engine::appMovementSpeed), m_jumpHeight(Engine::appMovementJumpHeight), m_camera(camera), m_blocks(nullptr)
     {
-    }
-
-    bool Movement::GroundCheck() const
-    {
-        if (!Engine::appEnableGroundCheck) return false;
-
-        int y = current_position.y;
-        if (m_camera)
-        {
-            y = m_camera->GetPosition().y;
-        }
-        const int groundY = Engine::appCurrentGroundHeight - Engine::appPlayerHeight;
-        return y >= groundY;
     }
 
     void Movement::Down()
@@ -29,7 +16,7 @@ namespace Engine::Input
         current_position = m_camera->Move(0, m_speed);
     }
 
-    void Movement::Up()
+    void Movement::Up(const std::vector<Engine::Rendering::Block*>& blocks)
     {
         if (!Engine::appEnableGroundCheck)
         {
@@ -51,6 +38,4 @@ namespace Engine::Input
     {
         current_position = m_camera->Move(-m_speed, 0);
     }
-
-
 }

@@ -13,6 +13,7 @@ set(ENGINE_SOURCES
         Src/Rendering/Window.cpp
         Src/Rendering/Renderer.cpp
         Src/Rendering/Camera.cpp
+        Src/Rendering/Block.cpp
         Src/Util/Time.cpp
         Src/Math/Math.cpp
         Src/Math/Mat.cpp
@@ -29,9 +30,9 @@ add_library(Engine STATIC ${ENGINE_SOURCES})
 # repository root, so we expose the parent directory as a PUBLIC include dir.
 target_include_directories(Engine
         PUBLIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/Include
-            ${CMAKE_CURRENT_SOURCE_DIR}/..
-            ${X11_INCLUDE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
+        ${X11_INCLUDE_DIR}
 )
 
 # Link to X11 so consumers don't have to remember to do it.

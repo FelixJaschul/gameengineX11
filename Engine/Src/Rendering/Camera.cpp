@@ -6,9 +6,9 @@
 
 namespace Engine::Rendering
 {
-    Camera::Camera(Engine::Util::Time* time)
-        : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false),
-        m_groundHeight(Engine::appCurrentGroundHeight)
+    Camera::Camera(Engine::Util::Time* time, std::vector<Block*>& blocks)
+        : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false)
+        , m_blocks(blocks)
     {
     }
 
@@ -19,51 +19,64 @@ namespace Engine::Rendering
         return m_position;
     }
 
+    int Camera::FindGroundHeight() const
+    {
+        int closestGroundY = std::numeric_limits<int>::max();
+
+        for (const auto* block : m_blocks)
+        {
+            // Only consider blocks horizontally under the player
+            if (block->IsPlayerAbove(m_position, Engine::appPlayerHeight))
+            {
+                // Block must be below or slightly overlapping the player's bottom
+                if (block->GetGroundHeight() >= m_position.y + Engine::appPlayerHeight &&
+                    block->GetGroundHeight() <  closestGroundY)
+                {
+                    closestGroundY = block->GetGroundHeight();
+                }
+            }
+        }
+
+        return closestGroundY;
+    }
+
     Math::Vec::iVec2 Camera::Jump(int dx, int dy)
     {
         m_position.x += dx;
 
-        // Allow free vertical movement
         if (!Engine::appEnableGroundCheck)
         {
             m_position.y += dy;
             return m_position;
         }
 
-        const double dt = std::max(0.0, m_time->GetDeltaSeconds());
+        // IF GROUND CHECK IS ENABLED::::: DO THIS ALL
+        Engine::appCurrentGroundHeight = FindGroundHeight();
 
-        if (!m_air)
+        if (!m_air && dy < 0) // Jump
         {
-            if (dy < 0)
-            {
-                m_air = true;
-                m_velocityY = static_cast<double>(dy);
-            }
-            else
-            {
-                if (m_position.y < m_groundHeight)
-                {
-                    m_air = true; // start falling under gravity
-                }
-                else
-                {
-                    m_position.y = m_groundHeight;
-                    return m_position;
-                }
-            }
+            m_air = true;
+            m_velocityY = static_cast<double>(dy);
         }
 
-        m_velocityY += appGravityValue * dt;
+        const double dt = std::max(0.0, m_time->GetDeltaSeconds());
+        m_velocityY += appGravityValue * dt; // Math bla bla
         double newY = static_cast<double>(m_position.y) + m_velocityY * dt;
 
-        if (newY >= m_groundHeight)
+        // Snap to ground
+        if (newY + Engine::appPlayerHeight >= Engine::appCurrentGroundHeight)
         {
-            newY = m_groundHeight;
+            newY = Engine::appCurrentGroundHeight - Engine::appPlayerHeight;
             m_velocityY = 0.0;
             m_air = false;
         }
+        else
+        {
+            m_air = true;
+        }
 
         m_position.y = static_cast<int>(newY);
+
         return m_position;
     }
 
@@ -71,15 +84,15 @@ namespace Engine::Rendering
     {
         if (!Engine::appEnableGroundCheck) return false;
 
-        if (!m_air && m_position.y >= m_groundHeight)
+        if (!m_air &&
+            m_position.y + Engine::appPlayerHeight >= FindGroundHeight() &&
+            dy < 0)
         {
-            if (dy < 0)
-            {
-                m_air = true;
-                m_velocityY = static_cast<double>(dy);
-                return true;
-            }
+            m_air = true;
+            m_velocityY = static_cast<double>(dy);
+            return true;
         }
+
         return false;
     }
 }
