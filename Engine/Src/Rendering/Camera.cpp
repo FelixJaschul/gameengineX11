@@ -19,10 +19,8 @@ namespace Engine::Rendering
         return m_position;
     }
 
-    int Camera::FindGroundHeight() const
+    const Block *Camera::GetBlockBeneath() const
     {
-        int closestGroundY = std::numeric_limits<int>::max();
-
         for (const auto* block : m_blocks)
         {
             // Only consider blocks horizontally under the player
@@ -30,14 +28,13 @@ namespace Engine::Rendering
             {
                 // Block must be below or slightly overlapping the player's bottom
                 if (block->GetGroundHeight() >= m_position.y + Engine::appPlayerHeight &&
-                    block->GetGroundHeight() <  closestGroundY)
+                    block->GetGroundHeight() <  std::numeric_limits<int>::max())
                 {
-                    closestGroundY = block->GetGroundHeight();
+                    return block;
                 }
             }
         }
-
-        return closestGroundY;
+        return nullptr;
     }
 
     Math::Vec::iVec2 Camera::Jump(int dx, int dy)
@@ -50,8 +47,8 @@ namespace Engine::Rendering
             return m_position;
         }
 
-        // IF GROUND CHECK IS ENABLED::::: DO THIS ALL
-        Engine::appCurrentGroundHeight = FindGroundHeight();
+        // IF GROUND CHECK IS ENABLED ::::: DO THIS ALL
+        Engine::appCurrentGroundHeight = GetBlockBeneath()->GetGroundHeight();
 
         if (!m_air && dy < 0) // Jump
         {
@@ -85,7 +82,7 @@ namespace Engine::Rendering
         if (!Engine::appEnableGroundCheck) return false;
 
         if (!m_air &&
-            m_position.y + Engine::appPlayerHeight >= FindGroundHeight() &&
+            m_position.y + Engine::appPlayerHeight >= GetBlockBeneath()->GetGroundHeight() &&
             dy < 0)
         {
             m_air = true;

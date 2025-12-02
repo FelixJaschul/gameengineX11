@@ -19,11 +19,10 @@ namespace Engine::Rendering
 
         bool GetJump(int dy);
         [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; }
+        [[nodiscard]] const Block* GetBlockBeneath() const;
         void SetPosition(Math::Vec::iVec2 position) { m_position = position; }
 
         private:
-        [[nodiscard]] int FindGroundHeight() const;
-
         Math::Vec::iVec2 m_position;
         const std::vector<Block*>& m_blocks;
         Engine::Util::Time* m_time;

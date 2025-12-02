@@ -36,7 +36,7 @@ class game final : public Engine::App
         // Init
         auto* camera   = Engine::App::GetCamera();
         auto* movement = Engine::App::GetMovement();
-        auto& blocks   = Engine::App::GetBlocks();
+        auto& blocks= Engine::App::GetBlocks();
 
         // Update
         position = camera->GetPosition();
