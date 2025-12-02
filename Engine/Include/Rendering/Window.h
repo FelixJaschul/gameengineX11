@@ -31,7 +31,6 @@ namespace Engine::Rendering
         private:
         Display* m_display;
         ::Window m_window;
-        const char* m_title;
         int m_screen;
         Atom m_wmDeleteMessage;
         bool m_isRunning;

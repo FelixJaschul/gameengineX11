@@ -6,7 +6,7 @@
 namespace Engine::Rendering
 {
     Window::Window()
-        : m_display(XOpenDisplay(nullptr)), m_window(0), m_title(Engine::Window::GetWindowTitle()), m_screen(DefaultScreen(m_display)), m_isRunning(false)
+        : m_display(XOpenDisplay(nullptr)), m_window(0), m_screen(DefaultScreen(m_display)), m_isRunning(false)
     {
         if (m_display == nullptr)
         {
@@ -18,8 +18,8 @@ namespace Engine::Rendering
         m_window = XCreateSimpleWindow(
             m_display,
             RootWindow(m_display, m_screen),
-            10, 10,
-            static_cast<unsigned int>(Engine::Window::GetDefaultWindowY()), static_cast<unsigned int>(Engine::Window::GetDefaultWindowX()),
+            100, 100,
+            Engine::Window::GetDefaultWindowY(), Engine::Window::GetDefaultWindowX(),
             1, 0, 0
         );
 
@@ -30,7 +30,7 @@ namespace Engine::Rendering
         m_wmDeleteMessage = XInternAtom(m_display, "WM_DELETE_WINDOW", False);
         XSetWMProtocols(m_display, m_window, &m_wmDeleteMessage, 1);
 
-        XStoreName(m_display, m_window, m_title);
+        XStoreName(m_display, m_window, Engine::Window::GetWindowTitle());
         XMapWindow(m_display, m_window);
 
         m_isRunning = true;
