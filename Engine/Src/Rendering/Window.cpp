@@ -10,7 +10,7 @@ namespace Engine::Rendering
     {
         if (m_display == nullptr)
         {
-            std::cerr << "[Engine] Failed to open X display." << std::endl;
+            std::cerr << "[Engine] Failed to open X11 display." << std::endl;
             m_isRunning = false;
             return;
         }
