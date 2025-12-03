@@ -12,14 +12,14 @@ namespace Engine::Input
     void Movement::Down()
     {
         if (Engine::GetGroundCheck()) return;
-        current_position = m_camera->Move(0, static_cast<int>(m_speed * m_time->GetDeltaSeconds() * Engine::Window::GetDesiredFPS()));
+        current_position = m_camera->Move(0, static_cast<int>(m_speed * m_time->GetDeltaSeconds() * 60.0));
     }
 
     void Movement::Up()
     {
         if (!Engine::GetGroundCheck())
         {
-            current_position = m_camera->Move(0, static_cast<int>(-m_speed * m_time->GetDeltaSeconds() * Engine::Window::GetDesiredFPS()));
+            current_position = m_camera->Move(0, static_cast<int>(-m_speed * m_time->GetDeltaSeconds() * 60.0));
         }
         else
         {
@@ -30,11 +30,11 @@ namespace Engine::Input
 
     void Movement::Right()
     {
-        current_position = m_camera->Move(static_cast<int>(m_speed * m_time->GetDeltaSeconds() * Engine::Window::GetDesiredFPS()), 0);
+        current_position = m_camera->Move(static_cast<int>(m_speed * m_time->GetDeltaSeconds() * 60.0), 0);
     }
 
     void Movement::Left()
     {
-        current_position = m_camera->Move(static_cast<int>(-m_speed * m_time->GetDeltaSeconds() * Engine::Window::GetDesiredFPS()), 0);
+        current_position = m_camera->Move(static_cast<int>(-m_speed * m_time->GetDeltaSeconds() * 60.0), 0);
     }
 }

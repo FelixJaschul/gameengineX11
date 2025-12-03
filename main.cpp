@@ -8,6 +8,7 @@ class game final : public Engine::App
     game()
     {
         Engine::Window::SetWindowTitle("X11"); Engine::Window::SetDefaultWindowX(800); Engine::Window::SetDefaultWindowY(600);
+        Engine::Window::SetDesiredFPS(180);
         Engine::Rendering::SetWireframeMode(true);
         Engine::SetGroundCheck(true); Engine::SetMovementSpeed(10); Engine::SetMovementJumpHeight(700); Engine::SetPlayerHeight(40);
 

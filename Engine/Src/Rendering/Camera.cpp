@@ -43,13 +43,13 @@ namespace Engine::Rendering
 
         if (!Engine::GetGroundCheck())
         {
-            leave:
             m_position.y += dy;
             return m_position;
         }
 
         // IF GROUND CHECK IS ENABLED ::::: DO THIS ALL
-        Engine::SetCurrentGroundHeight(GetBlockBeneath()->GetGroundHeight());
+        if (!Engine::Rendering::Camera::GetBlockBeneath()) return {.x = dx, .y = Engine::GetCurrentGroundHeight() };
+        Engine::SetCurrentGroundHeight(Engine::Rendering::Camera::GetBlockBeneath()->GetGroundHeight());
 
         if (!m_air && dy < 0) // Jump
         {
@@ -81,9 +81,10 @@ namespace Engine::Rendering
     bool Camera::GetJump(int dy)
     {
         if (!Engine::GetGroundCheck()) return false;
+        if (!Engine::Rendering::Camera::GetBlockBeneath()) m_position.y = Engine::GetCurrentGroundHeight() - Engine::GetPlayerHeight();
 
         if (!m_air &&
-            m_position.y + Engine::GetPlayerHeight() >= GetBlockBeneath()->GetGroundHeight() &&
+            m_position.y + Engine::GetPlayerHeight() >= Engine::Rendering::Camera::GetBlockBeneath()->GetGroundHeight() &&
             dy < 0)
         {
             m_air = true;

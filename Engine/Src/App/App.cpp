@@ -35,6 +35,7 @@ namespace Engine
 
         while (m_isRunning)
         {
+            const auto frameStart = std::chrono::steady_clock::now();
             if (!m_window->PollEvents()) m_isRunning = false;
 
             // Call Update
@@ -46,7 +47,14 @@ namespace Engine
             // Render Shit
             Render();
 
-            usleep(16 * 1000);
+            auto frameEnd = std::chrono::steady_clock::now();
+            double frameTime = std::chrono::duration<double>(frameEnd - frameStart).count();
+
+            if (frameTime < Engine::Window::GetDesiredFPS())
+            {
+                auto sleepDuration = std::chrono::duration<double>(1.0 / Engine::Window::GetDesiredFPS() - frameTime);
+                std::this_thread::sleep_for(sleepDuration);
+            }
         }
     }
 
