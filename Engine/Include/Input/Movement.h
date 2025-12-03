@@ -1,8 +1,8 @@
 #pragma once
-#include "Math/Vec.h"
+#include <Math/Vec.h>
 #include <vector>
 
-#include "Util/Time.h"
+#include <Util/Time.h>
 
 namespace Engine::Rendering
 {
