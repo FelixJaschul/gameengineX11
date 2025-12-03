@@ -22,23 +22,20 @@ class game final : public Engine::App
     protected:
     void Update() override
     {
-        // Init
-        auto* Camera = Engine::App::GetCamera();
-        auto* Move   = Engine::App::GetMovement();
-        auto& Blocks = Engine::App::GetBlocks();
-
         // Update
-        position = Camera->GetPosition();
-        for (auto* Block : Blocks) if (Block) Block->Update();
+        position = GetCamera()->GetPosition();
+        for (auto* Block : GetBlocks()) if (Block) Block->Update();
+        GetTime()->Update();
+        Engine::Input::UpdateFrame();
 
         // Input
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::SetGroundCheck(!Engine::GetGroundCheck());
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::SetWireframeMode(!Engine::Rendering::GetWireframeMode());
 
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) Move->Right();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  Move->Left();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Down))  Move->Down();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Up))    Move->Up();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) GetMovement()->Right();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  GetMovement()->Left();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Down))  GetMovement()->Down();
+        if (Engine::Input::IsKeyDown(Engine::Input::Key::Up))    GetMovement()->Up();
     }
 
     void Render() override
@@ -52,6 +49,10 @@ class game final : public Engine::App
 
         // Render player
         Renderer->DrawRect(position.x, position.y, Engine::GetPlayerHeight(), Engine::GetPlayerHeight(), 0x00FF00);
+
+        char fpsText[32];
+        snprintf(fpsText, sizeof(fpsText), "FPS: %.1f", Engine::App::GetTime()->GetFPS());
+        Renderer->DrawText(10, 20, fpsText, 0xFFFFFF);
 
         Renderer->Present();
     }

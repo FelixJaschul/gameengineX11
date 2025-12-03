@@ -2,6 +2,8 @@
 #include "Math/Vec.h"
 #include <vector>
 
+#include "Util/Time.h"
+
 namespace Engine::Rendering
 {
     class Camera;
@@ -13,7 +15,7 @@ namespace Engine::Input
     class Movement
     {
         public:
-        explicit Movement(Engine::Rendering::Camera* camera);
+        explicit Movement(Engine::Rendering::Camera* camera, Engine::Util::Time* time);
         ~Movement() = default;
 
         void Right();
@@ -26,6 +28,7 @@ namespace Engine::Input
         private:
         Math::Vec::iVec2 current_position{};
         Engine::Rendering::Camera* m_camera{nullptr};
+        Engine::Util::Time* m_time{nullptr};
         const std::vector<Engine::Rendering::Block*>* m_blocks{nullptr};
 
         int m_speed;

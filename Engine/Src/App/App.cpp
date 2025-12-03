@@ -1,5 +1,6 @@
 #include <App/App.h>
 #include <iostream>
+#include <thread>
 #include <unistd.h>
 #include <Util/Time.h>
 #include <Rendering/Camera.h>
@@ -12,9 +13,9 @@ namespace Engine
         // Create systems in an order that respects dependencies
         m_window   = std::make_unique<Rendering::Window>();
         m_time     = std::make_unique<Util::Time>();
-        m_camera   = std::make_unique<Rendering::Camera>(m_time.get(), m_blocks);
+        m_camera   = std::make_unique<Rendering::Camera>(Engine::App::GetTime(), Engine::App::GetBlocks());
         m_renderer = std::make_unique<Rendering::Renderer>(Engine::App::GetWindow());
-        m_movement = std::make_unique<Input::Movement>(Engine::App::GetCamera());
+        m_movement = std::make_unique<Input::Movement>(Engine::App::GetCamera(), Engine::App::GetTime());
 
         std::cout << "[Engine] Creating Application..." << std::endl;
     }
@@ -22,7 +23,7 @@ namespace Engine
     App::~App()
     {
         // Clean up blocks
-        for (auto* block : m_blocks) delete block;
+        for (const auto* block : m_blocks) delete block;
         m_blocks.clear();
 
         std::cout << "[Engine] Destroying Application..." << std::endl;
@@ -34,27 +35,15 @@ namespace Engine
 
         while (m_isRunning)
         {
-            // Update time at the start of the frame so physics uses current dt
-            m_time->Update();
-
-            // Mark the beginning of a new frame for input (captures presses/releases)
-            Input::UpdateFrame();
-
-            // Process window events
             if (!m_window->PollEvents()) m_isRunning = false;
 
-            // Update blocks
-
-            // Game Logic
+            // Call Update
             Update();
 
-            // Apply gravity/fall even when no input is pressed
             if (m_camera) m_camera->Jump(0, 0);
 
-            // Rendering Logic
+            // Render Shit
             Render();
-
-            usleep(16000);
         }
     }
 

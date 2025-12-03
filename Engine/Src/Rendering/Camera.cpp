@@ -6,7 +6,7 @@
 
 namespace Engine::Rendering
 {
-    Camera::Camera(Engine::Util::Time* time, std::vector<Block*>& blocks)
+    Camera::Camera(Engine::Util::Time* time, std::vector<Rendering::Block*> blocks)
         : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false)
         , m_blocks(blocks)
     {

@@ -11,7 +11,7 @@ namespace Engine::Rendering
     class Camera
     {
         public:
-        explicit Camera(Engine::Util::Time* time, std::vector<Block*>& blocks);
+        explicit Camera(Engine::Util::Time* time, std::vector<Rendering::Block*>);
         ~Camera() = default;
 
         Math::Vec::iVec2 Move(int dx, int dy);

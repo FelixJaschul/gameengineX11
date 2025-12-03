@@ -8,13 +8,14 @@ namespace Engine::Rendering
     class Renderer
     {
         public:
-        explicit Renderer(Window* window);
+        explicit Renderer(Engine::Rendering::Window* window);
         ~Renderer();
 
-        void SetColor(unsigned long color) const; // 0xRRGGBB format usually requires XAllocColor, using raw pixel for now
+        void SetColor(unsigned long color) const;
 
         void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color) const;
         void DrawRect(int x, int y, int width, int height, unsigned long color) const;
+        void DrawText(int x, int y, const char* text, unsigned long color) const;
 
         void Clear() const;
         void Present() const;

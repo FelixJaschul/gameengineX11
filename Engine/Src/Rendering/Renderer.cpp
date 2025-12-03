@@ -1,9 +1,10 @@
 #include <Rendering/Renderer.h>
 #include <iostream>
+#include <App/App.h>
 
 namespace Engine::Rendering
 {
-    Renderer::Renderer(Window* window)
+    Renderer::Renderer(Engine::Rendering::Window* window)
         : m_display(window->GetDisplay()), m_window(window->GetWindow()),
         m_GC(XCreateGC(m_display, m_window, 0, nullptr)), m_screen(DefaultScreen(m_display))
     {
@@ -30,6 +31,12 @@ namespace Engine::Rendering
     void Renderer::SetColor(unsigned long color) const
     {
         XSetForeground(m_display, m_GC, color);
+    }
+
+    void Renderer::DrawText(int x, int y, const char* text, unsigned long color) const
+    {
+        Renderer::SetColor(color);
+        XDrawString(m_display, m_window, m_GC, x, y, text, strlen(text));
     }
 
     void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color) const
