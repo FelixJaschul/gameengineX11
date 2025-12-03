@@ -32,8 +32,8 @@ class game final : public Engine::App
         for (auto* Block : Blocks) if (Block) Block->Update();
 
         // Input
-        if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::SetGroundCheck(!Engine::GetGroundCheck());
-        if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::Rendering::SetWireframeMode(!Engine::Rendering::GetWireframeMode());
+        if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::SetGroundCheck(!Engine::GetGroundCheck());
+        if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::SetWireframeMode(!Engine::Rendering::GetWireframeMode());
 
         if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) Move->Right();
         if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  Move->Left();

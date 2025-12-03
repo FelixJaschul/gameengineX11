@@ -19,7 +19,8 @@ namespace Engine::Rendering
             m_display,
             RootWindow(m_display, m_screen),
             100, 100,
-            Engine::Window::GetDefaultWindowY(), Engine::Window::GetDefaultWindowX(),
+            static_cast<unsigned int>(Engine::Window::GetDefaultWindowX()),
+            static_cast<unsigned int>(Engine::Window::GetDefaultWindowY()),
             1, 0, 0
         );
 

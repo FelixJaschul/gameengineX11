@@ -5,9 +5,9 @@ namespace Engine
 {
     namespace Window
     {
-        inline const char* appWindowTitle;
-        inline int appDefaultWindowX;
-        inline int appDefaultWindowY;
+        inline const char* appWindowTitle = "X11";
+        inline int appDefaultWindowX = 800;
+        inline int appDefaultWindowY = 600;
 
         inline const char* GetWindowTitle() { return Engine::Window::appWindowTitle; }
         inline int  GetDefaultWindowX() { return Engine::Window::appDefaultWindowX; }
@@ -20,20 +20,20 @@ namespace Engine
 
     namespace Rendering
     {
-        inline bool appWireframeMode;
+        inline bool appWireframeMode = false;
 
         inline bool GetWireframeMode() { return Engine::Rendering::appWireframeMode; }
 
         inline void SetWireframeMode(bool MODE) { Engine::Rendering::appWireframeMode = MODE; }
     }
 
-    inline int  appMovementSpeed;
-    inline int  appMovementJumpHeight;
-    inline int  appCurrentGroundHeight;
-    inline int  appPlayerHeight;
+    inline int  appMovementSpeed = 10;
+    inline int  appMovementJumpHeight = 700;
+    inline int  appCurrentGroundHeight = 400;
+    inline int  appPlayerHeight = 50;
     // random number that just seemed to work:: default value
     inline int  appGravityValue = 2000;
-    inline bool appEnableGroundCheck;
+    inline bool appEnableGroundCheck = true;
 
     inline int  GetMovementSpeed() { return Engine::appMovementSpeed; }
     inline int  GetMovementJumpHeight() { return Engine::appMovementJumpHeight; }
