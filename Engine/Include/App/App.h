@@ -33,8 +33,6 @@ namespace Engine
         [[nodiscard]] Engine::Util::Time* GetTime() const { return m_time.get(); }
         [[nodiscard]] std::vector<Rendering::Block*>& GetBlocks() { return m_blocks; }
 
-        void AddBlock(Rendering::Block* block) { m_blocks.push_back(block); }
-
         private:
         // Smart pointers handle memory automatically
         std::unique_ptr<Rendering::Window> m_window;

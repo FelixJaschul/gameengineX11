@@ -2,65 +2,72 @@
 
 Math::Vec::iVec2 position = {.x = 400, .y = 400};
 
-class game final : public Engine::App
+namespace Game
 {
-    public:
-    game()
+    class App final : public Engine::App
     {
-        Engine::Window::SetWindowTitle("X11"); Engine::Window::SetDefaultWindowX(800); Engine::Window::SetDefaultWindowY(600);
-        Engine::Window::SetDesiredFPS(180);
-        Engine::Rendering::SetWireframeMode(true);
-        Engine::SetGroundCheck(true); Engine::SetMovementSpeed(10); Engine::SetMovementJumpHeight(700); Engine::SetPlayerHeight(40);
-
-        int x = -Engine::appPlayerHeight;
-        for (int i = 0; i != 17; i++)
+        public:
+        App()
         {
-            x += Engine::appPlayerHeight;
-            AddBlock(new Engine::Rendering::Block({x, 450}, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x8B4513));
+            Engine::Window::SetWindowTitle("X11"); Engine::Window::SetDefaultWindowX(800); Engine::Window::SetDefaultWindowY(600);
+            Engine::Window::SetDesiredFPS(180);
+            Engine::Rendering::SetWireframeMode(true);
+            Engine::SetGroundCheck(true); Engine::SetMovementSpeed(10); Engine::SetMovementJumpHeight(700); Engine::SetPlayerHeight(40);
+            GenerateWorld(GetBlocks());
         }
-    }
 
-    protected:
-    void Update() override
-    {
-        // Update
-        position = GetCamera()->GetPosition();
-        for (auto* Block : GetBlocks()) if (Block) Block->Update();
-        GetTime()->Update();
+        protected:
+        static void GenerateWorld(std::vector<Engine::Rendering::Block*>& Blocks)
+        {
+            int x = -Engine::appPlayerHeight;
+            for (int i = 0; i != 17; i++)
+            {
+                x += Engine::appPlayerHeight;
+                Blocks.push_back(new Engine::Rendering::Block({x, 450}, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x8B4513));
+            }
+        }
 
-        // Input
-        if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::SetGroundCheck(!Engine::GetGroundCheck());
-        if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::SetWireframeMode(!Engine::Rendering::GetWireframeMode());
+        void Update() override
+        {
+            // Update
+            position = GetCamera()->GetPosition();
+            for (auto* Block : GetBlocks()) if (Block) Block->Update();
+            GetTime()->Update();
 
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) GetMovement()->Right();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  GetMovement()->Left();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Down))  GetMovement()->Down();
-        if (Engine::Input::IsKeyDown(Engine::Input::Key::Up))    GetMovement()->Up();
-    }
+            // Input
+            if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::SetGroundCheck(!Engine::GetGroundCheck());
+            if (Engine::Input::IsKeyPressed(Engine::Input::Key::W)) Engine::Rendering::SetWireframeMode(!Engine::Rendering::GetWireframeMode());
 
-    void Render() override
-    {
-        auto* Renderer = Engine::App::GetRenderer();
-        Renderer->Clear();
+            if (Engine::Input::IsKeyDown(Engine::Input::Key::Right)) GetMovement()->Right();
+            if (Engine::Input::IsKeyDown(Engine::Input::Key::Left))  GetMovement()->Left();
+            if (Engine::Input::IsKeyDown(Engine::Input::Key::Down))  GetMovement()->Down();
+            if (Engine::Input::IsKeyDown(Engine::Input::Key::Up))    GetMovement()->Up();
+        }
 
-        // Render all blocks first
-        for (const auto* Block : GetBlocks()) if (Block) Block->Render(Renderer);
+        void Render() override
+        {
+            auto* Renderer = Engine::App::GetRenderer();
+            Renderer->Clear();
 
-        // Render player
-        Renderer->DrawRect(position.x, position.y, Engine::GetPlayerHeight(), Engine::GetPlayerHeight(), 0x00FF00);
+            // Render all blocks first
+            for (const auto* Block : GetBlocks()) if (Block) Block->Render(Renderer);
 
-        char Text[32];
-        snprintf(Text, sizeof(Text), "FPS: %.1f", Engine::App::GetTime()->GetFPS());
-        Renderer->DrawText(10, 20, Text, 0xFFFFFF);
-        snprintf(Text, sizeof(Text), "GroundCheck Value: %.d", Engine::GetGroundCheck());
-        Renderer->DrawText(100, 20, Text, 0xFFFFFF);
+            // Render player
+            Renderer->DrawRect(position.x, position.y, Engine::GetPlayerHeight(), Engine::GetPlayerHeight(), 0x00FF00);
 
-        Renderer->Present();
-    }
-};
+            char Text[32];
+            snprintf(Text, sizeof(Text), "FPS: %.1f", Engine::App::GetTime()->GetFPS());
+            Renderer->DrawText(10, 20, Text, 0xFFFFFF);
+            snprintf(Text, sizeof(Text), "GroundCheck Value: %.d", Engine::GetGroundCheck());
+            Renderer->DrawText(100, 20, Text, 0xFFFFFF);
+
+            Renderer->Present();
+        }
+    };
+}
 
 Engine::App* Engine::CreateApp()
 {
     HELLOENGINE();
-    return new game();
+    return new Game::App();
 }
