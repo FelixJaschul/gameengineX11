@@ -43,8 +43,7 @@ class game final : public Engine::App
         Renderer->Clear();
 
         // Render all blocks first
-        auto& Blocks = Engine::App::GetBlocks();
-        for (const auto* Block : Blocks) if (Block) Block->Render(Renderer);
+        for (const auto* Block : GetBlocks()) if (Block) Block->Render(Renderer);
 
         // Render player
         Renderer->DrawRect(position.x, position.y, Engine::GetPlayerHeight(), Engine::GetPlayerHeight(), 0x00FF00);
