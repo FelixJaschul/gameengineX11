@@ -32,6 +32,5 @@ namespace Engine::Input
         const std::vector<Engine::Rendering::Block*>* m_blocks{nullptr};
 
         int m_speed;
-        int m_jumpHeight;
     };
 }

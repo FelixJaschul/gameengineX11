@@ -39,11 +39,14 @@ namespace Engine
 
             // Call Update
             Update();
+            Engine::Input::UpdateFrame();
 
             if (m_camera) m_camera->Jump(0, 0);
 
             // Render Shit
             Render();
+
+            usleep(16 * 1000);
         }
     }
 

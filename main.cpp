@@ -26,7 +26,6 @@ class game final : public Engine::App
         position = GetCamera()->GetPosition();
         for (auto* Block : GetBlocks()) if (Block) Block->Update();
         GetTime()->Update();
-        Engine::Input::UpdateFrame();
 
         // Input
         if (Engine::Input::IsKeyPressed(Engine::Input::Key::G)) Engine::SetGroundCheck(!Engine::GetGroundCheck());
@@ -50,9 +49,11 @@ class game final : public Engine::App
         // Render player
         Renderer->DrawRect(position.x, position.y, Engine::GetPlayerHeight(), Engine::GetPlayerHeight(), 0x00FF00);
 
-        char fpsText[32];
-        snprintf(fpsText, sizeof(fpsText), "FPS: %.1f", Engine::App::GetTime()->GetFPS());
-        Renderer->DrawText(10, 20, fpsText, 0xFFFFFF);
+        char Text[32];
+        snprintf(Text, sizeof(Text), "FPS: %.1f", Engine::App::GetTime()->GetFPS());
+        Renderer->DrawText(10, 20, Text, 0xFFFFFF);
+        snprintf(Text, sizeof(Text), "GroundCheck Value: %.d", Engine::GetGroundCheck());
+        Renderer->DrawText(100, 20, Text, 0xFFFFFF);
 
         Renderer->Present();
     }

@@ -6,7 +6,7 @@
 
 namespace Engine::Rendering
 {
-    Camera::Camera(Engine::Util::Time* time, std::vector<Rendering::Block*> blocks)
+    Camera::Camera(Engine::Util::Time* time, const std::vector<Rendering::Block*>& blocks)
         : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false)
         , m_blocks(blocks)
     {
@@ -24,7 +24,7 @@ namespace Engine::Rendering
         for (const auto* block : m_blocks)
         {
             // Only consider blocks horizontally under the player
-            if (block->IsPlayerAbove(m_position, Engine::GetPlayerHeight()))
+            if (block->IsPlayerAbove(m_position))
             {
                 // Block must be below or slightly overlapping the player's bottom
                 if (block->GetGroundHeight() >= m_position.y + Engine::GetPlayerHeight() &&
@@ -43,6 +43,7 @@ namespace Engine::Rendering
 
         if (!Engine::GetGroundCheck())
         {
+            leave:
             m_position.y += dy;
             return m_position;
         }

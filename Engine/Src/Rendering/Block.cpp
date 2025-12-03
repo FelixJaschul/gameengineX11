@@ -13,7 +13,7 @@ namespace Engine::Rendering
         // Future: Add block logic here (animations, state changes, etc.)
     }
 
-    void Block::Render(Renderer* renderer) const
+    void Block::Render(Engine::Rendering::Renderer* renderer) const
     {
         if (!renderer) return;
         renderer->DrawRect(m_position.x, m_position.y, m_width, m_height, m_color);
@@ -25,13 +25,9 @@ namespace Engine::Rendering
                y >= m_position.y && y <= m_position.y + m_height;
     }
 
-    bool Block::IsPlayerAbove(Math::Vec::iVec2 playerPos, int playerWidth) const
+    bool Block::IsPlayerAbove(Math::Vec::iVec2 playerPos) const
     {
-        int playerLeft = playerPos.x;
-        int playerRight = playerPos.x + playerWidth;
-
-        // Check horizontal overlap
-        return playerRight > m_position.x && playerLeft < m_position.x + m_width;
+        return playerPos.x + Engine::GetPlayerHeight() > m_position.x && playerPos.x < m_position.x + m_width;
     }
 
 }

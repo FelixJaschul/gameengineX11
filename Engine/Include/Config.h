@@ -33,7 +33,7 @@ namespace Engine
     inline int  appPlayerHeight = 50;
     // random number that just seemed to work:: default value
     inline int  appGravityValue = 2000;
-    inline bool appEnableGroundCheck = true;
+    inline bool appEnableGroundCheck = false;
 
     inline int  GetMovementSpeed() { return Engine::appMovementSpeed; }
     inline int  GetMovementJumpHeight() { return Engine::appMovementJumpHeight; }

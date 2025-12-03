@@ -13,7 +13,7 @@ namespace Engine::Rendering
         ~Block() = default;
 
         void Update();
-        void Render(Renderer* renderer) const;
+        void Render(Engine::Rendering::Renderer* renderer) const;
 
         // Getters
         [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; }
@@ -23,7 +23,7 @@ namespace Engine::Rendering
 
         // Check if a point is within this block's bounds
         [[nodiscard]] bool ContainsPoint(int x, int y) const;
-        [[nodiscard]] bool IsPlayerAbove(Math::Vec::iVec2 playerPos, int playerHeight) const;
+        [[nodiscard]] bool IsPlayerAbove(Math::Vec::iVec2 playerPos) const;
 
         private:
         Math::Vec::iVec2 m_position;
