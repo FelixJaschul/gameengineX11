@@ -6,16 +6,19 @@ namespace Engine
     namespace Window
     {
         inline const char* appWindowTitle = "X11";
-        inline int appDefaultWindowX = 800;
-        inline int appDefaultWindowY = 600;
+        inline int  appDefaultWindowX = 800;
+        inline int  appDefaultWindowY = 600;
+        inline int  appDesiredFPS = 144;
 
         inline const char* GetWindowTitle() { return Engine::Window::appWindowTitle; }
         inline int  GetDefaultWindowX() { return Engine::Window::appDefaultWindowX; }
         inline int  GetDefaultWindowY() { return Engine::Window::appDefaultWindowY; }
+        inline int  GetDesiredFPS() { return Engine::Window::appDesiredFPS; }
 
         inline void SetWindowTitle(const char* TITLE) { Engine::Window::appWindowTitle = TITLE; }
         inline void SetDefaultWindowX(int WIDTH) { Engine::Window::appDefaultWindowX = WIDTH; }
         inline void SetDefaultWindowY(int HEIGHT) { Engine::Window::appDefaultWindowY = HEIGHT; }
+        inline void SetDesiredFPS(int FPS) { Engine::Window::appDesiredFPS = FPS; }
     }
 
     namespace Rendering

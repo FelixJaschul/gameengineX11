@@ -16,7 +16,6 @@ set(ENGINE_SOURCES
         Src/Rendering/Block.cpp
         Src/Util/Time.cpp
         Src/Math/Math.cpp
-        Src/Math/Mat.cpp
         Src/Math/Vec.cpp
         Src/Input/Input.cpp
         Src/Input/Movement.cpp
