@@ -3,8 +3,8 @@
 
 namespace Engine::Rendering
 {
-    Block::Block(Math::Vec::iVec2 position, int width, int height, unsigned long color)
-        : m_position(position), m_width(width), m_height(height), m_color(color)
+    Block::Block(Math::Vec::iVec2 position, int width, int height, bool walkthrough, unsigned long color)
+        : m_position(position), m_width(width), m_height(height), m_color(color), m_walkthrough(walkthrough)
     {
     }
 

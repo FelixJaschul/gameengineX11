@@ -1,15 +1,14 @@
 #pragma once
 
 #include <Math/Vec.h>
+#include <Rendering/Renderer.h>
 
 namespace Engine::Rendering
 {
-    class Renderer;
-
     class Block
     {
         public:
-        Block(Math::Vec::iVec2 position, int width, int height, unsigned long color);
+        Block(Math::Vec::iVec2 position, int width, int height, bool walkthrough, unsigned long color);
         ~Block() = default;
 
         void Update();
@@ -20,6 +19,7 @@ namespace Engine::Rendering
         [[nodiscard]] int GetWidth() const { return m_width; }
         [[nodiscard]] int GetHeight() const { return m_height; }
         [[nodiscard]] int GetGroundHeight() const { return m_position.y; }
+        [[nodiscard]] bool IsWalkthrough() const { return m_walkthrough; }
 
         // Check if a point is within this block's bounds
         [[nodiscard]] bool ContainsPoint(int x, int y) const;
@@ -29,6 +29,7 @@ namespace Engine::Rendering
         Math::Vec::iVec2 m_position;
         int m_width;
         int m_height;
+        bool m_walkthrough;
         unsigned long m_color;
     };
 }

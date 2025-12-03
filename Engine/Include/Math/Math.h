@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Math
+namespace Util::Math
 {
     float Radians(float deg);
 }

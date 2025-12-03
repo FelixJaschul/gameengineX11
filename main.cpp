@@ -1,5 +1,7 @@
 #include <Engine/Core.h>
 
+#include "Util/Perlin.h"
+
 Math::Vec::iVec2 position = {.x = 400, .y = 400};
 
 namespace Game
@@ -13,17 +15,33 @@ namespace Game
             Engine::Window::SetDesiredFPS(180);
             Engine::Rendering::SetWireframeMode(true);
             Engine::SetGroundCheck(true); Engine::SetMovementSpeed(10); Engine::SetMovementJumpHeight(700); Engine::SetPlayerHeight(40);
-            GenerateWorld(GetBlocks());
+            GenerateWorld(GetBlocks(), 1000, -100);
         }
 
         protected:
-        static void GenerateWorld(std::vector<Engine::Rendering::Block*>& Blocks)
+        static void GenerateWorld(std::vector<Engine::Rendering::Block*>& Blocks, int EndX, int StartX)
         {
-            int x = -Engine::appPlayerHeight;
+            /*int x = -Engine::appPlayerHeight;
             for (int i = 0; i != 17; i++)
             {
                 x += Engine::appPlayerHeight;
                 Blocks.push_back(new Engine::Rendering::Block({x, 450}, Engine::appPlayerHeight, Engine::appPlayerHeight, 0x8B4513));
+            }*/
+            for (int x = StartX; x < EndX; x++)
+            {
+                Engine::Util::Noise::Perlin perlin(1234);
+                float noise = perlin.Noise1D(x * 0.01f);
+                float normalized = (noise + 1.0f) * 0.5f;
+
+                const int groundHeight = 300 + static_cast<int>(normalized * 200);
+
+                Blocks.push_back(new Engine::Rendering::Block(
+                    {x * Engine::appPlayerHeight, groundHeight},
+                    Engine::appPlayerHeight,
+                    Engine::appPlayerHeight,
+                    true,
+                    0x8B4513
+                ));
             }
         }
 
