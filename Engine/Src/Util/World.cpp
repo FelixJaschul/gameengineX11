@@ -3,17 +3,12 @@
 
 namespace Engine::Util
 {
-    // keep a simple global pointer similar to Config-style accessors
-    static World* g_World = nullptr;
-
     World::World(std::vector<Rendering::Block*>& blocks)
         : m_blocks(blocks)
     {
-        g_World = this;
     }
 
-    // Simple integer hash -> [0,1)
-    float World::hash01(int x, int seed)
+    float World::hash01(const int x, const int seed)
     {
         uint32_t h = static_cast<uint32_t>(x) * 374761393u + static_cast<uint32_t>(seed) * 668265263u;
         h = (h ^ (h >> 13)) * 1274126177u;
@@ -21,13 +16,10 @@ namespace Engine::Util
         return (h & 0xFFFFFFu) / 16777216.0f;
     }
 
-    // 1D value noise with a couple of octaves (very cheap stand-in for Perlin)
-    float World::fbm1D(float x, int seed)
+    float World::fbm1D(const float x, const int seed)
     {
-        float total = 0.0f;
-        float amplitude = 1.0f;
-        float frequency = 1.0f;
-        float norm = 0.0f;
+        float total = 0.0f, amplitude = 1.0f, frequency = 1.0f, norm = 0.0f;
+
         for (int i = 0; i < 4; ++i)
         {
             int xi = static_cast<int>(std::floor(x * frequency));
@@ -45,20 +37,13 @@ namespace Engine::Util
 
     void World::Generate()
     {
-        const int tileSize = Engine::GetPlayerHeight();
-        const int worldWidthBlocks = 200;
-        const int worldHeightBlocks = 60;
-        const int baseSurface = 10;
-        const int surfaceAmplitude = 6;
-        const unsigned long grassColor = 0x2E7D32FF;
-        const unsigned long dirtColor  = 0x6D4C41FF;
-        const unsigned long stoneColor = 0x424242FF;
-        const int dirtDepth = 3;
+        const int tileSize = Engine::GetPlayerHeight(), worldWidthBlocks = 200, worldHeightBlocks = 60;
 
         // Generate heightmap along X
         std::vector<int> surface(worldWidthBlocks);
         for (int x = 0; x < worldWidthBlocks; ++x)
         {
+            constexpr int surfaceAmplitude = 6, baseSurface = 10;
             constexpr int seed = 1337;
             const float n = fbm1D(static_cast<float>(x) * 0.07f, seed);
             int h = baseSurface + static_cast<int>(std::round((n - 0.5f) * 2.0f * surfaceAmplitude));
@@ -68,28 +53,24 @@ namespace Engine::Util
 
         for (int x = 0; x < worldWidthBlocks; ++x)
         {
-            int surfaceY = surface[x];
+            constexpr int dirtDepth = 3;
+            const int surfaceY = surface[x];
             {
-                Math::Vec::iVec2 pos{ x * tileSize, surfaceY * tileSize };
-                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, grassColor));
+                const Math::Vec::iVec2 pos{ x * tileSize, surfaceY * tileSize };
+                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, 0x2E7D32FF));
             }
 
             for (int dy = 1; dy <= dirtDepth && (surfaceY + dy) < worldHeightBlocks; ++dy)
             {
-                Math::Vec::iVec2 pos{ x * tileSize, (surfaceY + dy) * tileSize };
-                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, dirtColor));
+                const Math::Vec::iVec2 pos{ x * tileSize, (surfaceY + dy) * tileSize };
+                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, 0x6D4C41FF));
             }
 
             for (int y = surfaceY + dirtDepth + 1; y < worldHeightBlocks; ++y)
             {
-                Math::Vec::iVec2 pos{ x * tileSize, y * tileSize };
-                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, stoneColor));
+                const Math::Vec::iVec2 pos{ x * tileSize, y * tileSize };
+                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, 0x424242FF));
             }
         }
-    }
-
-    World* GetWorld()
-    {
-        return g_World;
     }
 }
