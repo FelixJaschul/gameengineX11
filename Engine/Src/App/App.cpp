@@ -49,9 +49,9 @@ namespace Engine
             Render();
 
             auto frameEnd = std::chrono::steady_clock::now();
-            double frameTime = std::chrono::duration<double>(frameEnd - frameStart).count();
 
-            if (frameTime < Engine::Window::GetDesiredFPS())
+            if (const double frameTime = std::chrono::duration<double>(frameEnd - frameStart).count();
+                frameTime < Engine::Window::GetDesiredFPS())
             {
                 auto sleepDuration = std::chrono::duration<double>(1.0 / Engine::Window::GetDesiredFPS() - frameTime);
                 std::this_thread::sleep_for(sleepDuration);
