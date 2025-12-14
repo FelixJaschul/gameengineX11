@@ -48,8 +48,6 @@ namespace Engine::Rendering
         }
 
         // IF GROUND CHECK IS ENABLED ::::: DO THIS ALL
-        if (!Engine::Rendering::Camera::GetBlockBeneath()) return {.x = dx, .y = Engine::GetCurrentGroundHeight() };
-        Engine::SetCurrentGroundHeight(Engine::Rendering::Camera::GetBlockBeneath()->GetGroundHeight());
 
         if (!m_air && dy < 0) // Jump
         {
@@ -94,4 +92,13 @@ namespace Engine::Rendering
 
         return false;
     }
+
+    Math::Vec::iVec2 Camera::WorldToScreen(Math::Vec::iVec2 worldPos) const
+    {
+        return {
+            worldPos.x - m_position.x + Engine::Window::GetDefaultWindowX() / 2,
+            worldPos.y - m_position.y + Engine::Window::GetDefaultWindowY() / 2
+        };
+    }
+
 }

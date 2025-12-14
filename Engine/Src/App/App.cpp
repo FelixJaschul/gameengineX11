@@ -41,6 +41,7 @@ namespace Engine
             // Call Update
             Update();
             Engine::Input::UpdateFrame();
+            if (Engine::GetGroundCheck()) Engine::SetCurrentGroundHeight(m_camera->GetBlockBeneath()->GetGroundHeight());
 
             if (m_camera) m_camera->Jump(0, 0);
 

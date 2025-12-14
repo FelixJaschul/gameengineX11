@@ -4,6 +4,8 @@
 #include <Util/Time.h>
 #include <vector>
 
+#include "Config.h"
+
 namespace Engine::Rendering
 {
     class Block;
@@ -18,9 +20,11 @@ namespace Engine::Rendering
         Math::Vec::iVec2 Jump(int dx, int dy);
 
         bool GetJump(int dy);
+        void SetPosition(Math::Vec::iVec2 position) { m_position = position; }
+
         [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; }
         [[nodiscard]] const Block* GetBlockBeneath() const;
-        void SetPosition(Math::Vec::iVec2 position) { m_position = position; }
+        [[nodiscard]] Math::Vec::iVec2 WorldToScreen(Math::Vec::iVec2 worldPos) const;
 
         private:
         Math::Vec::iVec2 m_position;

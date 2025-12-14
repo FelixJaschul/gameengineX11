@@ -27,6 +27,7 @@ namespace Engine::Rendering
 
     bool Block::IsPlayerAbove(Math::Vec::iVec2 playerPos) const
     {
+        if (m_walkthrough) return false;
         return playerPos.x + Engine::GetPlayerHeight() > m_position.x && playerPos.x < m_position.x + m_width;
     }
 

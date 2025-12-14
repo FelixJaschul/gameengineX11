@@ -19,6 +19,7 @@ namespace Engine::Rendering
         [[nodiscard]] int GetWidth() const { return m_width; }
         [[nodiscard]] int GetHeight() const { return m_height; }
         [[nodiscard]] int GetGroundHeight() const { return m_position.y; }
+        [[nodiscard]] unsigned long GetColor() const { return m_color; }
         [[nodiscard]] bool IsWalkthrough() const { return m_walkthrough; }
 
         // Check if a point is within this block's bounds
