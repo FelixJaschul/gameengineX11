@@ -12,12 +12,12 @@ namespace Engine
         : m_isRunning(false)
     {
         // Create systems in an order that respects dependencies
-        m_window   = std::make_unique<Rendering::Window>();
-        m_time     = std::make_unique<Util::Time>();
-        m_camera   = std::make_unique<Rendering::Camera>(Engine::App::GetTime(), Engine::App::GetBlocks());
-        m_renderer = std::make_unique<Rendering::Renderer>(Engine::App::GetWindow());
-        m_movement = std::make_unique<Input::Movement>(Engine::App::GetCamera(), Engine::App::GetTime());
-        m_world    = std::make_unique<World>(Engine::App::GetBlocks());
+        m_window   = std::make_unique<Engine::Rendering::Window>();
+        m_time     = std::make_unique<Engine::Util::Time>();
+        m_camera   = std::make_unique<Engine::Rendering::Camera>(Engine::App::GetTime(), Engine::App::GetBlocks());
+        m_renderer = std::make_unique<Engine::Rendering::Renderer>(Engine::App::GetWindow());
+        m_movement = std::make_unique<Engine::Input::Movement>(Engine::App::GetCamera(), Engine::App::GetTime());
+        m_world    = std::make_unique<Engine::Util::World>(Engine::App::GetBlocks());
 
         std::cout << "[Engine] Creating Application..." << std::endl;
     }
