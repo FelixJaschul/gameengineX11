@@ -52,18 +52,17 @@ namespace Game
             }
 
             // Render player at screen center
-            const int playerScreenX = Engine::Window::GetDefaultWindowX() / 2;
-            const int playerScreenY = Engine::Window::GetDefaultWindowY() / 2;
-            Renderer->DrawRect(playerScreenX, playerScreenY, Engine::GetPlayerHeight(), Engine::GetPlayerHeight(), 0x00FF00);
+            Renderer->DrawRect(
+                Engine::Window::GetDefaultWindowX() / 2,
+                Engine::Window::GetDefaultWindowY() / 2,
+                Engine::GetPlayerHeight(),
+                Engine::GetPlayerHeight(), 0x00FF00);
 
             // UI stays fixed on screen
             char Text[32];
-            snprintf(Text, sizeof(Text), "FPS: %.1f", Engine::App::GetTime()->GetFPS());
-            Renderer->DrawText(10, 20, Text, 0xFFFFFF);
-            snprintf(Text, sizeof(Text), "GroundCheck: %d", Engine::GetGroundCheck());
-            Renderer->DrawText(10, 40, Text, 0xFFFFFF);
-            snprintf(Text, sizeof(Text), "Pos: %d, %d", position.x, position.y);
-            Renderer->DrawText(10, 60, Text, 0xFFFFFF);
+            snprintf(Text, sizeof(Text), "FPS: %.1f", Engine::App::GetTime()->GetFPS()); Renderer->DrawText(10, 20, Text, 0xFFFFFF);
+            snprintf(Text, sizeof(Text), "GroundCheck: %d", Engine::GetGroundCheck()); Renderer->DrawText(10, 40, Text, 0xFFFFFF);
+            snprintf(Text, sizeof(Text), "Pos: %d, %d", position.x, position.y); Renderer->DrawText(10, 60, Text, 0xFFFFFF);
 
             Renderer->Present();
         }

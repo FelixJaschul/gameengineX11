@@ -1,6 +1,7 @@
 #include <Rendering/Renderer.h>
 #include <iostream>
 #include <App/App.h>
+#include <Config.h>
 
 namespace Engine::Rendering
 {
@@ -61,6 +62,9 @@ namespace Engine::Rendering
 
     void Renderer::DrawRect(int x, int y, int width, int height, unsigned long color) const
     {
+        // View culling
+        if (x + width < 0 || y + height < 0 || x >= Engine::Window::GetDefaultWindowX() || y >= Engine::Window::GetDefaultWindowY()) return;
+
         Renderer::SetColor(color);
         if (appWireframeMode)
         {
