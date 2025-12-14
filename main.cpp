@@ -21,9 +21,6 @@ namespace Game
             Engine::App::GetWorld()->Generate();
         }
 
-        protected:
-        // (World generation moved into Engine::World)
-
         void Update() override
         {
             // Update

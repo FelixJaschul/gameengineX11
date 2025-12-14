@@ -32,19 +32,19 @@ namespace Engine
         [[nodiscard]] Engine::Rendering::Camera* GetCamera() const { return m_camera.get(); }
         [[nodiscard]] Engine::Input::Movement* GetMovement() const { return m_movement.get(); }
         [[nodiscard]] Engine::Util::Time* GetTime() const { return m_time.get(); }
+        [[nodiscard]] Engine::Util::World* GetWorld() const { return m_world.get(); }
         [[nodiscard]] std::vector<Rendering::Block*>& GetBlocks() { return m_blocks; }
-        [[nodiscard]] Engine::World* GetWorld() const { return m_world.get(); }
 
         private:
         // Smart pointers handle memory automatically
-        std::unique_ptr<Rendering::Window> m_window;
-        std::unique_ptr<Rendering::Renderer> m_renderer;
-        std::unique_ptr<Rendering::Camera> m_camera;
-        std::unique_ptr<Input::Movement> m_movement;
-        std::unique_ptr<Util::Time> m_time;
-        std::unique_ptr<World> m_world;
+        std::unique_ptr<Engine::Rendering::Window> m_window;
+        std::unique_ptr<Engine::Rendering::Renderer> m_renderer;
+        std::unique_ptr<Engine::Rendering::Camera> m_camera;
+        std::unique_ptr<Engine::Input::Movement> m_movement;
+        std::unique_ptr<Engine::Util::Time> m_time;
+        std::unique_ptr<Engine::Util::World> m_world;
 
-        std::vector<Rendering::Block*> m_blocks;
+        std::vector<Engine::Rendering::Block*> m_blocks;
 
         bool m_isRunning;
     };
