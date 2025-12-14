@@ -9,6 +9,7 @@
 #include <Input/Movement.h>
 #include <Rendering/Camera.h>
 #include <Util/Time.h>
+#include <Util/World.h>
 
 namespace Engine
 {
@@ -32,6 +33,7 @@ namespace Engine
         [[nodiscard]] Engine::Input::Movement* GetMovement() const { return m_movement.get(); }
         [[nodiscard]] Engine::Util::Time* GetTime() const { return m_time.get(); }
         [[nodiscard]] std::vector<Rendering::Block*>& GetBlocks() { return m_blocks; }
+        [[nodiscard]] Engine::World* GetWorld() const { return m_world.get(); }
 
         private:
         // Smart pointers handle memory automatically
@@ -40,6 +42,7 @@ namespace Engine
         std::unique_ptr<Rendering::Camera> m_camera;
         std::unique_ptr<Input::Movement> m_movement;
         std::unique_ptr<Util::Time> m_time;
+        std::unique_ptr<World> m_world;
 
         std::vector<Rendering::Block*> m_blocks;
 

@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <Util/Time.h>
 #include <Rendering/Camera.h>
+#include <Util/World.h>
 
 namespace Engine
 {
@@ -16,6 +17,7 @@ namespace Engine
         m_camera   = std::make_unique<Rendering::Camera>(Engine::App::GetTime(), Engine::App::GetBlocks());
         m_renderer = std::make_unique<Rendering::Renderer>(Engine::App::GetWindow());
         m_movement = std::make_unique<Input::Movement>(Engine::App::GetCamera(), Engine::App::GetTime());
+        m_world    = std::make_unique<World>(Engine::App::GetBlocks());
 
         std::cout << "[Engine] Creating Application..." << std::endl;
     }

@@ -1,4 +1,8 @@
 #include <Engine/Core.h>
+#include <cmath>
+#include <cstdint>
+#include <vector>
+#include <Util/World.h>
 
 Math::Vec::iVec2 position = {.x = 400, .y = 400};
 
@@ -14,34 +18,11 @@ namespace Game
             Engine::Rendering::SetWireframeMode(true);
             Engine::SetGroundCheck(true); Engine::SetMovementSpeed(10); Engine::SetMovementJumpHeight(700);
             Engine::SetPlayerHeight(40);
-            GenerateWorld(GetBlocks());
+            Engine::App::GetWorld()->Generate();
         }
 
         protected:
-        static void GenerateWorld(std::vector<Engine::Rendering::Block*>& Blocks)
-        {
-            for (int x = 0; x < 800; x += Engine::GetPlayerHeight())
-            {
-                Blocks.push_back(
-                    new Engine::Rendering::Block(
-                        {x, 400},
-                        Engine::GetPlayerHeight(),
-                        Engine::GetPlayerHeight(),
-                        false,
-                        0x101013FF
-                    )
-                );
-            }
-            Blocks.push_back(
-                new Engine::Rendering::Block(
-                    {600, 300},
-                    Engine::GetPlayerHeight(),
-                    Engine::GetPlayerHeight(),
-                    true,
-                    0x00FFFFFF
-                )
-            );
-        }
+        // (World generation moved into Engine::World)
 
         void Update() override
         {

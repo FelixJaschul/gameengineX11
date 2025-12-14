@@ -15,6 +15,7 @@ set(ENGINE_SOURCES
         Src/Rendering/Camera.cpp
         Src/Rendering/Block.cpp
         Src/Util/Time.cpp
+        Src/Util/World.cpp
         Src/Math/Math.cpp
         Src/Math/Vec.cpp
         Src/Input/Input.cpp
