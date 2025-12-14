@@ -69,11 +69,8 @@ namespace Game
             // Render all blocks with camera offset
             for (const auto* Block : GetBlocks())
             {
-                if (Block)
-                {
-                    const auto[x, y] = Camera->WorldToScreen(Block->GetPosition());
-                    Renderer->DrawRect(x, y, Block->GetWidth(), Block->GetHeight(), Block->GetColor());
-                }
+                const auto[x, y] = Camera->WorldToScreen(Block->GetPosition());
+                Renderer->DrawRect(x, y, Block->GetWidth(), Block->GetHeight(), Block->GetColor());
             }
 
             // Render player at screen center
