@@ -12,7 +12,7 @@ namespace Engine::Util
         explicit World(std::vector<Rendering::Block*>& blocks);
         ~World() = default;
 
-        void Generate();
+        void Generate() const;
 
         private:
         static float hash01(int x, int seed);

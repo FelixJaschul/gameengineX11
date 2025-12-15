@@ -13,7 +13,7 @@ namespace Engine::Util
         uint32_t h = static_cast<uint32_t>(x) * 374761393u + static_cast<uint32_t>(seed) * 668265263u;
         h = (h ^ (h >> 13)) * 1274126177u;
         h ^= (h >> 16);
-        return (h & 0xFFFFFFu) / 16777216.0f;
+        return static_cast<float>(h & 0xFFFFFFu) / 16777216.0f;
     }
 
     float World::fbm1D(const float x, const int seed)
@@ -35,41 +35,30 @@ namespace Engine::Util
         return total / std::max(0.0001f, norm); // [0,1]
     }
 
-    void World::Generate()
+    void World::Generate() const
     {
-        const int tileSize = Engine::GetPlayerHeight(), worldWidthBlocks = 200, worldHeightBlocks = 60;
+        const int tile   = Engine::GetPlayerHeight(), width  = 200, height = 60;
+        constexpr int seed = 1337, baseY = 10, amp = 6, dirtDepth = 3;
 
-        // Generate heightmap along X
-        std::vector<int> surface(worldWidthBlocks);
-        for (int x = 0; x < worldWidthBlocks; ++x)
+        for (int x = 0; x < width; ++x)
         {
-            constexpr int surfaceAmplitude = 6, baseSurface = 10;
-            constexpr int seed = 1337;
-            const float n = fbm1D(static_cast<float>(x) * 0.07f, seed);
-            int h = baseSurface + static_cast<int>(std::round((n - 0.5f) * 2.0f * surfaceAmplitude));
-            h = std::max(2, std::min(h, worldHeightBlocks - 4));
-            surface[x] = h;
-        }
+            const float n = fbm1D(x * 0.07f, seed);
 
-        for (int x = 0; x < worldWidthBlocks; ++x)
-        {
-            constexpr int dirtDepth = 3;
-            const int surfaceY = surface[x];
-            {
-                const Math::Vec::iVec2 pos{ x * tileSize, surfaceY * tileSize };
-                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, 0x2E7D32FF));
-            }
+            const int surfaceY = std::clamp(baseY + static_cast<int>(std::round((n - 0.5f) * 2.0f * amp)), 2, height - 4);
 
-            for (int dy = 1; dy <= dirtDepth && (surfaceY + dy) < worldHeightBlocks; ++dy)
+            for (int y = surfaceY; y < height; ++y)
             {
-                const Math::Vec::iVec2 pos{ x * tileSize, (surfaceY + dy) * tileSize };
-                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, 0x6D4C41FF));
-            }
+                const uint32_t color = (y == surfaceY) ? 0x2E7D32FF : (y <= surfaceY + dirtDepth) ? 0x6D4C41FF : 0x424242FF;
 
-            for (int y = surfaceY + dirtDepth + 1; y < worldHeightBlocks; ++y)
-            {
-                const Math::Vec::iVec2 pos{ x * tileSize, y * tileSize };
-                m_blocks.push_back(new Engine::Rendering::Block(pos, tileSize, tileSize, false, 0x424242FF));
+                m_blocks.push_back(
+                    new Engine::Rendering::Block(
+                        { x * tile, y * tile },
+                        tile,
+                        tile,
+                        false,
+                        color
+                    )
+                );
             }
         }
     }
