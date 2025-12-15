@@ -1,8 +1,4 @@
 #include <Engine/Core.h>
-#include <cmath>
-#include <cstdint>
-#include <vector>
-#include <Util/World.h>
 
 Math::Vec::iVec2 position = {.x = 400, .y = 400};
 

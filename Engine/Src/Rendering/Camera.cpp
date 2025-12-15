@@ -7,15 +7,54 @@
 namespace Engine::Rendering
 {
     Camera::Camera(Engine::Util::Time* time, const std::vector<Rendering::Block*>& blocks)
-        : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false)
-        , m_blocks(blocks)
+        : m_position({0, 0}), m_time(time), m_velocityY(0.0), m_air(false), m_blocks(blocks)
     {
+    }
+
+    // Helper: resolve horizontal collisions against non-walkthrough blocks.
+    // Returns corrected nextX based on overlap at nextY and movement direction dx.
+    int Camera::ResolveHorizontalCollision(int nextX, int nextY, int dx) const
+    {
+        if (dx == 0) return nextX;
+
+        for (const auto* Block : m_blocks)
+        {
+            if (!Block || Block->IsWalkthrough()) continue;
+
+            const int  bRight  = Block->GetPosition().x + Block->GetWidth();
+            const int  bBottom = Block->GetPosition().y + Block->GetHeight();
+
+            if (const bool verticalOverlap = (nextY + Engine::GetPlayerHeight() > Block->GetPosition().y) &&
+                (nextY < bBottom); !verticalOverlap) continue;
+
+            if (dx > 0)
+            {
+                if (nextX + Engine::GetPlayerHeight() > Block->GetPosition().x &&
+                    m_position.x + Engine::GetPlayerHeight() <= Block->GetPosition().x)
+                    nextX = Block->GetPosition().x - Engine::GetPlayerHeight();
+            }
+            else
+            {
+                if (nextX < bRight && m_position.x >= bRight) nextX = bRight;
+            }
+        }
+
+        return nextX;
     }
 
     Math::Vec::iVec2 Camera::Move(int dx, int dy)
     {
-        m_position.x += dx;
-        m_position.y += dy;
+        // Simple move if ground check is disabled (no collisions)
+        if (!Engine::GetGroundCheck())
+        {
+            m_position.x += dx;
+            m_position.y += dy;
+            return m_position;
+        }
+
+        // IF GROUND CHECK IS ENABLED ::::: apply horizontal collision against non-walkthrough blocks
+        m_position.x = ResolveHorizontalCollision(m_position.x + dx, m_position.y + dy, dx);
+        m_position.y = m_position.y + dy;
         return m_position;
     }
 
@@ -28,10 +67,7 @@ namespace Engine::Rendering
             {
                 // Block must be below or slightly overlapping the player's bottom
                 if (block->GetGroundHeight() >= m_position.y + Engine::GetPlayerHeight() &&
-                    block->GetGroundHeight() <  std::numeric_limits<int>::max())
-                {
-                    return block;
-                }
+                    block->GetGroundHeight() <  std::numeric_limits<int>::max()) return block;
             }
         }
         return nullptr; // crash game if no block

@@ -27,6 +27,8 @@ namespace Engine::Rendering
         [[nodiscard]] Math::Vec::iVec2 WorldToScreen(Math::Vec::iVec2 worldPos) const;
 
         private:
+        [[nodiscard]] int ResolveHorizontalCollision(int nextX, int nextY, int dx) const;
+
         Math::Vec::iVec2 m_position;
         const std::vector<Block*>& m_blocks;
         Engine::Util::Time* m_time;
