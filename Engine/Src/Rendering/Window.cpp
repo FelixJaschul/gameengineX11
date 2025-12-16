@@ -136,26 +136,24 @@ namespace Engine::Rendering
                             case XK_8: return Key::Num8;
                             case XK_9: return Key::Num9;
 
-                            case XK_Shift_L: return Key::LeftShift;
-                            case XK_Shift_R: return Key::RightShift;
+                            case XK_Shift_L:   return Key::LeftShift;
+                            case XK_Shift_R:   return Key::RightShift;
                             case XK_Control_L: return Key::LeftControl;
                             case XK_Control_R: return Key::RightControl;
-                            case XK_Alt_L: return Key::LeftAlt;
-                            case XK_Alt_R: return Key::RightAlt;
-                            case XK_Super_L: return Key::LeftSuper;
-                            case XK_Super_R: return Key::RightSuper;
+                            case XK_Alt_L:     return Key::LeftAlt;
+                            case XK_Alt_R:     return Key::RightAlt;
+                            case XK_Super_L:   return Key::LeftSuper;
+                            case XK_Super_R:   return Key::RightSuper;
+
                             default: return Engine::Input::Key::Unknown;
                         }
                     };
 
                     Engine::Input::Key k = mapKey(sym);
-                    if (k != Engine::Input::Key::Unknown)
-                        Engine::Input::SetKey(k, true);
+                    if (k != Engine::Input::Key::Unknown) Engine::Input::SetKey(k, true);
 
                     // Close on ESC
-                    if (sym == XK_Escape) {
-                        m_isRunning = false;
-                    }
+                    if (sym == XK_Escape) m_isRunning = false;
                     break;
                 }
                 case KeyRelease:
@@ -214,21 +212,21 @@ namespace Engine::Rendering
                             case XK_8: return Key::Num8;
                             case XK_9: return Key::Num9;
 
-                            case XK_Shift_L: return Key::LeftShift;
-                            case XK_Shift_R: return Key::RightShift;
+                            case XK_Shift_L:   return Key::LeftShift;
+                            case XK_Shift_R:   return Key::RightShift;
                             case XK_Control_L: return Key::LeftControl;
                             case XK_Control_R: return Key::RightControl;
-                            case XK_Alt_L: return Key::LeftAlt;
-                            case XK_Alt_R: return Key::RightAlt;
-                            case XK_Super_L: return Key::LeftSuper;
-                            case XK_Super_R: return Key::RightSuper;
+                            case XK_Alt_L:     return Key::LeftAlt;
+                            case XK_Alt_R:     return Key::RightAlt;
+                            case XK_Super_L:   return Key::LeftSuper;
+                            case XK_Super_R:   return Key::RightSuper;
+
                             default: return Engine::Input::Key::Unknown;
                         }
                     };
 
                     Engine::Input::Key k = mapKey(sym);
-                    if (k != Engine::Input::Key::Unknown)
-                        Engine::Input::SetKey(k, false);
+                    if (k != Engine::Input::Key::Unknown) Engine::Input::SetKey(k, false);
                     break;
                 }
                 default: break;

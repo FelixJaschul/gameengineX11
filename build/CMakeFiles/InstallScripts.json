@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/felix/Projects/gameengineX11/build/cmake_install.cmake",
-		"/home/felix/Projects/gameengineX11/build/Engine/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

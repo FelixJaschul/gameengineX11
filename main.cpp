@@ -37,7 +37,7 @@ namespace Game
         void Render() override
         {
             const auto* Renderer = Engine::App::GetRenderer();
-            const auto* Camera = Engine::App::GetCamera();
+            const auto* Camera   = Engine::App::GetCamera();
             Renderer->Clear();
 
             // Render all blocks with camera offset
@@ -52,13 +52,14 @@ namespace Game
                 Engine::Window::GetDefaultWindowX() / 2,
                 Engine::Window::GetDefaultWindowY() / 2,
                 Engine::GetPlayerHeight(),
-                Engine::GetPlayerHeight(), 0x00FF00);
+                Engine::GetPlayerHeight(), 0x00FF00
+            );
 
             // UI stays fixed on screen
             char Text[32];
             snprintf(Text, sizeof(Text), "FPS: %.1f", Engine::App::GetTime()->GetFPS()); Renderer->DrawText(10, 20, Text, 0xFFFFFF);
-            snprintf(Text, sizeof(Text), "GroundCheck: %d", Engine::GetGroundCheck()); Renderer->DrawText(10, 40, Text, 0xFFFFFF);
-            snprintf(Text, sizeof(Text), "Pos: %d, %d", position.x, position.y); Renderer->DrawText(10, 60, Text, 0xFFFFFF);
+            snprintf(Text, sizeof(Text), "GroundCheck: %d", Engine::GetGroundCheck());   Renderer->DrawText(10, 40, Text, 0xFFFFFF);
+            snprintf(Text, sizeof(Text), "Pos: %d, %d", position.x, position.y);         Renderer->DrawText(10, 60, Text, 0xFFFFFF);
 
             Renderer->Present();
         }

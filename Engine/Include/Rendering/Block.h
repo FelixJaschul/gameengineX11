@@ -16,7 +16,7 @@ namespace Engine::Rendering
 
         // Getters
         [[nodiscard]] Math::Vec::iVec2 GetPosition() const { return m_position; }
-        [[nodiscard]] int GetWidth() const { return m_width; }
+        [[nodiscard]] int GetWidth()  const { return m_width; }
         [[nodiscard]] int GetHeight() const { return m_height; }
         [[nodiscard]] int GetGroundHeight() const { return m_position.y; }
         [[nodiscard]] unsigned long GetColor() const { return m_color; }

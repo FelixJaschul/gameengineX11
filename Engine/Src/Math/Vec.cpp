@@ -17,21 +17,6 @@ namespace Math::Vec
         return { v.x * s, v.y * s, v.z * s };
     }
 
-    Vec3 Add(const Vec3& a, const Vec3& b)
-    {
-        return { a.x + b.x, a.y + b.y, a.z + b.z };
-    }
-
-    Vec3 Subtract(const Vec3& a, const Vec3& b)
-    {
-        return { a.x - b.x, a.y - b.y, a.z - b.z };
-    }
-
-    Vec3 Multiply(const Vec3& a, float s)
-    {
-        return { a.x * s, a.y * s, a.z * s };
-    }
-
     float Dot(const Vec3& a, const Vec3& b)
     {
         return a.x*b.x + a.y*b.y + a.z*b.z;

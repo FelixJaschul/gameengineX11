@@ -15,10 +15,7 @@ namespace Engine::Input
     void SetKey(Key key, bool down)
     {
         auto idx = static_cast<size_t>(key);
-        if (idx < s_curr.size())
-        {
-            s_curr[idx] = down;
-        }
+        if (idx < s_curr.size() s_curr[idx] = down;
     }
 
     bool IsKeyDown(Key key)

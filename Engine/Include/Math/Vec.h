@@ -14,9 +14,6 @@ namespace Math::Vec
     Vec3 operator-(const Vec3& a, const Vec3& b);
     Vec3 operator*(const Vec3& v, float s);
 
-    Vec3 Add(const Vec3& a, const Vec3& b);
-    Vec3 Subtract(const Vec3& a, const Vec3& b);
-    Vec3 Multiply(const Vec3& a, float s);
     float Dot(const Vec3& a, const Vec3& b);
     Vec3 Cross(const Vec3& a, const Vec3& b);
     Vec3 Normalize(const Vec3& v);

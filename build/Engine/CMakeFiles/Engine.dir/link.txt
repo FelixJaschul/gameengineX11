@@ -1,2 +1,0 @@
-/usr/bin/ar qc libEngine.a CMakeFiles/Engine.dir/Src/Rendering/Window.cpp.o CMakeFiles/Engine.dir/Src/Rendering/Renderer.cpp.o CMakeFiles/Engine.dir/Src/Rendering/Camera.cpp.o CMakeFiles/Engine.dir/Src/Rendering/Block.cpp.o CMakeFiles/Engine.dir/Src/Util/Time.cpp.o CMakeFiles/Engine.dir/Src/Util/World.cpp.o CMakeFiles/Engine.dir/Src/Math/Math.cpp.o CMakeFiles/Engine.dir/Src/Math/Vec.cpp.o CMakeFiles/Engine.dir/Src/Input/Input.cpp.o CMakeFiles/Engine.dir/Src/Input/Movement.cpp.o CMakeFiles/Engine.dir/Src/App/App.cpp.o
-/usr/bin/ranlib libEngine.a
