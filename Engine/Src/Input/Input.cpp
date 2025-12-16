@@ -1,4 +1,5 @@
 #include <Input/Input.h>
+#include <cstddef>
 #include <array>
 
 namespace Engine::Input

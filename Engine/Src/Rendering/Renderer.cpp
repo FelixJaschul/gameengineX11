@@ -1,5 +1,6 @@
 #include <Rendering/Renderer.h>
 #include <iostream>
+#include <cstring>
 #include <App/App.h>
 #include <Config.h>
 

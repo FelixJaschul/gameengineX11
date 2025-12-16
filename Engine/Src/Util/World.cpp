@@ -1,5 +1,7 @@
 #include <Util/World.h>
+#include <cstdint>
 #include <cmath>
+#include <algorithm>
 
 namespace Engine::Util
 {
