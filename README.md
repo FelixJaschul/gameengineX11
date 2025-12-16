@@ -7,6 +7,12 @@
 
 #### TL:DR
 you run it with cmake lol. Good luck
+
+rm -rf build
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+./build/GameEngineX11
+
 - obv only runs on LINUX (tested) or WSL (tested) and on MACOS (my setup) if XQuartz is installed (because X11 ??)
 - the performance has nothing to do with the software but how trash your cpu is bla bla.
 - bla bla. Windows wont be supported bla bla.
