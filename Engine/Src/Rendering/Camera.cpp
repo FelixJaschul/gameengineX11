@@ -13,7 +13,7 @@ namespace Engine::Rendering
 
     // Helper: resolve horizontal collisions against non-walkthrough blocks.
     // Returns corrected nextX based on overlap at nextY and movement direction dx.
-    int Camera::ResolveHorizontalCollision(int nextX, int nextY, int dx) const
+    int Camera::ResolveHorizontalCollision(int nextX, const int nextY, const int dx) const
     {
         if (dx == 0) return nextX;
 
@@ -42,7 +42,7 @@ namespace Engine::Rendering
         return nextX;
     }
 
-    Math::Vec::iVec2 Camera::Move(int dx, int dy)
+    Math::Vec::iVec2 Camera::Move(const int dx, const int dy)
     {
         // Simple move if ground check is disabled (no collisions)
         if (!Engine::GetGroundCheck())
@@ -73,7 +73,7 @@ namespace Engine::Rendering
         return nullptr; // crash game if no block
     }
 
-    Math::Vec::iVec2 Camera::Jump(int dx, int dy)
+    Math::Vec::iVec2 Camera::Jump(const int dx, const int dy)
     {
         m_position.x += dx;
 
@@ -112,7 +112,7 @@ namespace Engine::Rendering
         return m_position;
     }
 
-    bool Camera::GetJump(int dy)
+    bool Camera::GetJump(const int dy)
     {
         if (!Engine::GetGroundCheck()) return false;
         if (!Engine::Rendering::Camera::GetBlockBeneath()) m_position.y = Engine::GetCurrentGroundHeight() - Engine::GetPlayerHeight();

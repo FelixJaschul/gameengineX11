@@ -30,18 +30,18 @@ namespace Engine::Rendering
         if (m_display && m_GC) XFreeGC(m_display, m_GC);
     }
 
-    void Renderer::SetColor(unsigned long color) const
+    void Renderer::SetColor(const unsigned long color) const
     {
         XSetForeground(m_display, m_GC, color);
     }
 
-    void Renderer::DrawText(int x, int y, const char* text, unsigned long color) const
+    void Renderer::DrawText(const int x, const int y, const char* text, const unsigned long color) const
     {
         Renderer::SetColor(color);
         XDrawString(m_display, m_window, m_GC, x, y, text, strlen(text));
     }
 
-    void Renderer::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, unsigned long color) const
+    void Renderer::DrawTriangle(const int x1, const int y1, const int x2, const int y2, const int x3, const int y3, const unsigned long color) const
     {
         Renderer::SetColor(color);
         if (appWireframeMode)
@@ -61,7 +61,7 @@ namespace Engine::Rendering
         }
     }
 
-    void Renderer::DrawRect(int x, int y, int width, int height, unsigned long color) const
+    void Renderer::DrawRect(const int x, const int y, const int width, const int height, const unsigned long color) const
     {
         // View culling
         if (x + width < 0 || y + height < 0 || x >= Engine::Window::GetDefaultWindowX() || y >= Engine::Window::GetDefaultWindowY()) return;

@@ -33,7 +33,7 @@ namespace Math::Vec
 
     Vec3 Normalize(const Vec3& v)
     {
-        float len = std::sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+        const float len = std::sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
         if (len == 0.0f) return {0,0,0};
         return { v.x/len, v.y/len, v.z/len };
     }

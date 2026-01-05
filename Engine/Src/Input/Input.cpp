@@ -14,25 +14,25 @@ namespace Engine::Input
 
     void SetKey(Key key, bool down)
     {
-        auto idx = static_cast<size_t>(key);
-        if (idx < s_curr.size() s_curr[idx] = down;
+        const auto idx = static_cast<size_t>(key);
+        if (idx < s_curr.size()) s_curr[idx] = down;
     }
 
     bool IsKeyDown(Key key)
     {
-        auto idx = static_cast<size_t>(key);
+        const auto idx = static_cast<size_t>(key);
         return idx < s_curr.size() ? s_curr[idx] : false;
     }
 
     bool IsKeyPressed(Key key)
     {
-        auto idx = static_cast<size_t>(key);
+        const auto idx = static_cast<size_t>(key);
         return idx < s_curr.size() ? (s_curr[idx] && !s_prev[idx]) : false;
     }
 
     bool IsKeyReleased(Key key)
     {
-        auto idx = static_cast<size_t>(key);
+        const auto idx = static_cast<size_t>(key);
         return idx < s_curr.size() ? (!s_curr[idx] && s_prev[idx]) : false;
     }
 }

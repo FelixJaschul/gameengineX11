@@ -75,15 +75,13 @@ namespace Engine::Rendering
             switch (event.type)
             {
                 case ClientMessage:
-                    if ((Atom)event.xclient.data.l[0] == m_wmDeleteMessage) {
-                        m_isRunning = false;
-                    }
+                    if (static_cast<Atom>(event.xclient.data.l[0]) == m_wmDeleteMessage) m_isRunning = false;
                     break;
                 case KeyPress:
                 {
-                    KeySym sym = XLookupKeysym(&event.xkey, 0);
+                    const KeySym sym = XLookupKeysym(&event.xkey, 0);
                     // Map to engine key and set down=true
-                    auto mapKey = [](KeySym s) -> Engine::Input::Key {
+                    auto mapKey = [](const KeySym s) -> Engine::Input::Key {
                         using namespace Engine::Input;
                         switch (s)
                         {
@@ -158,8 +156,8 @@ namespace Engine::Rendering
                 }
                 case KeyRelease:
                 {
-                    KeySym sym = XLookupKeysym(&event.xkey, 0);
-                    auto mapKey = [](KeySym s) -> Engine::Input::Key {
+                    const KeySym sym = XLookupKeysym(&event.xkey, 0);
+                    auto mapKey = [](const KeySym s) -> Engine::Input::Key {
                         using namespace Engine::Input;
                         switch (s)
                         {
