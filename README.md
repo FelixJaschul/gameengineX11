@@ -1,5 +1,5 @@
-#### Rebuilding my old and ugly Rasterizer:
-- repository: https://github.com/FelixJaschul/rasterizerX11.git (dont look at this its ugly as hell)
+#### First try in a game engine (2d) 
+- repository for 3d: https://github.com/FelixJaschul/rasterizerengineX11.git 
 
 #### THIS IS IT:
 
